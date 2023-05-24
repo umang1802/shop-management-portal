@@ -1,4 +1,5 @@
 import React from "react";
+import AddCategory from "./AddCategory";
 import Content from "./Content";
 import Header from "./Header";
 import ProductTable from "./Table/ProductTable";
@@ -57,6 +58,7 @@ function Main(props) {
         <div className="mt-10">
           <ProductTable />
         </div>
+        <AddCategory/>
       </div>
     </div>
     
