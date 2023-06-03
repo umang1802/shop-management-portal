@@ -1,6 +1,6 @@
 import React from "react";
-import Content from "./Content";
-import Header from "./Header";
+import AddCategory from "./AddCategory";
+import AddProduct from "./AddProduct";
 import ProductTable from "./Table/ProductTable";
 
 const data = [
@@ -115,6 +115,8 @@ function Main(props) {
             <ProductTable data={data} pageSize={pageSize} />
           </div>
         </div>
+        <AddCategory/>
+        {/* <AddProduct /> */}
       </div>
 
       {/* <div class="grid grid-col-12 grid-flow-col gap-2">

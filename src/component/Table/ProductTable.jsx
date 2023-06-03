@@ -315,9 +315,3 @@ const Table = ({ data, pageSize }) => {
 };
 
 export default Table;
-
-
-
-
-
-
