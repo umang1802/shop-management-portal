@@ -160,7 +160,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.productName
+                        item.product_name
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -178,7 +178,7 @@ const Table = ({ data, pageSize }) => {
                           ))}
                         </select>
                       ) : (
-                        item.category
+                        item.category.category_name
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -191,7 +191,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.stockWorkshop
+                        item.warehouse_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -204,7 +204,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.stockOutlet01
+                        item.outlet_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -217,7 +217,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.stockOutlet02
+                        item.outlet_stock[1].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -283,7 +283,7 @@ const Table = ({ data, pageSize }) => {
             </nav>
           </div>
         </nav>
-        <div className="space-x-2">
+        {/* <div className="space-x-2">
           <button
             className="px-2 py-1 border border-gray-300 rounded-sm"
             onClick={() => handleSort('category')}
@@ -308,7 +308,7 @@ const Table = ({ data, pageSize }) => {
           >
             Sort by Stock (Outlet 02)
           </button>
-        </div>
+        </div> */}
       </div>
     </div>
   );
