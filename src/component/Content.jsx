@@ -2,19 +2,36 @@ import React from "react";
 
 function Content(props) {
   return (
-    <div>
-      <button class="bg-transparent hover:bg-gray-500 text-gray-500 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded shadow">
-        View Active Products
-      </button>
-      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded shadow">
-        Add New Product
-      </button>
-      <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded shadow">
-        Add New Category
-      </button>
-      <div>Active Product List</div>
-      <div>Table</div>
-    </div>
+   <>
+   <div class="flex items-center">
+            <div className="text-4xl font-bold text-gray-900 text-left">
+              Stocks/Products
+            </div>
+            <div className="ml-auto flex items-center text-gray-400 text-sm font-normal">
+              Teusday | 25 Apr 2023 | 8:20 AM
+              <div className="ml-8">
+                <input type="text" className="border rounded-full px-2 py-2" />
+              </div>
+            </div>
+
+            <div className="ml-8">
+              <img src="./assets/notification.svg" />
+            </div>
+          </div>
+          <div className="mt-6 flex">
+            <div className="rounded-full border-2 border-gray-400  px-6 py-3 shadow-md text-sm font-semibold text-gray-800">
+              Add Inactive Products
+            </div>
+            <div className="ml-auto flex items-center">
+              <div onClick={props.initiateAddNewProduct} className="rounded-full bg-white border-2 border-blue-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 cursor-pointer hover:bg-blue-200">
+                Add New Products
+              </div>
+              <div onClick={props.initiateAddNewCategory} className="ml-2 rounded-full bg-white border-2 border-blue-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 cursor-pointer hover:bg-blue-200">
+                Add New Category
+              </div>
+            </div>
+          </div>
+   </>
   );
 }
 

@@ -5,8 +5,8 @@ const AddProduct = () => {
   const [product, setProduct] = useState({
     product_name: '',
     category_id: '',
+    unit: '',
     price: '',
-    image_url: '',
   });
 
   const handleChange = (e) => {
@@ -29,61 +29,54 @@ const AddProduct = () => {
     setProduct({
         product_name: '',
         category_id: '',
+        unit: '',
         price: '',
-        image_url: '',
     });
   };
 
   return (
     <div>
-      <h2>Add New Product</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="product_name">Name:</label>
-          <input
-            type="text"
-            id="product_name"
-            name="product_name"
-            value={product.product_name}
-            onChange={handleChange}
-            required
-          />
+      <div className='flex bg-white px-8 py-8 shadow-md rounded-md'>
+        <div className="w-1/2 p-6">
+          <div className='flex flex-col items-start w-full'>
+            <div className='text-blue-600 text-base'>Product Name</div>
+            <div className='w-full mt-2'>
+              <input id="product_name" name="product_name" value={product.product_name} placeholder='Please enter product name' type="text" className='py-2 px-2 border border-blue-600 rounded-sm w-full' onChange={handleChange} ></input>
+            </div>
+          </div>
+          <div className='flex flex-col items-start w-full mt-6'>
+            <div className='text-blue-600 text-base'>Select Category</div>
+            <div className='w-full mt-2'>
+              <select id="product_name" name="category_id" value={product.category_id} placeholder='Please select category' className='appearance-none py-2 px-2 border border-blue-600 rounded-sm w-full'  onChange={handleChange}>
+                <option value={'1'}>option 1</option>
+                <option value={'2'}>option 2</option>
+                <option value={'3'}>option 3</option>
+              </select>
+            </div>
+          </div>
+          <div className='flex flex-col items-start w-full mt-6'>
+            <div className='text-blue-600 text-base'>Unit</div>
+            <div className='w-full mt-2'>
+              <select name="unit" value={product.unit} placeholder='Please select unit' className='appearance-none py-2 px-2 border border-blue-600 rounded-sm w-full'  onChange={handleChange}>
+                <option vlaue={'Kg'}>Kg</option>
+                <option value={'litre'}>litre</option>
+                <option value={'gram'}>gram</option>
+              </select>
+            </div>
+          </div>
+          <div className='flex flex-col items-start w-full mt-6'>
+            <div className='text-blue-600 text-base'>Price</div>
+            <div className='w-full mt-2'>
+              <input name="price" value={product.price} placeholder='Please enter price' type="text" className='py-2 px-2 border border-blue-600 rounded-sm w-full'  onChange={handleChange}></input>
+            </div>
+          </div>
+          <div className='flex items-center justify-center'>
+          <div class=" mt-4 px-4 py-4 bg-blue-100 border border-blue-300 rounded-full w-2/5 cursor-pointer hover:bg-blue-300" onClick={handleSubmit}>Submit</div>
+          </div>
+          
         </div>
-        <div>
-          <label htmlFor="category_id">Category:</label>
-          <input
-            type="text"
-            id="category_id"
-            name="category_id"
-            value={product.category_id}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="price">Price:</label>
-          <input
-            type="number"
-            id="price"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div>
-          <label htmlFor="image_url">Image:</label>
-          <input
-            type="text"
-            id="image_url"
-            name="image_url"
-            value={product.image_url}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Add Product</button>
-      </form>
+        <div className='w-1/2'></div>
+      </div>
     </div>
   );
 };
