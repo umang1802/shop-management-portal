@@ -1,14 +1,13 @@
-import './App.css';
-import Main from './component/Main';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import ShopRoutes from './routes';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      {/* <div className='font-semibold text-center text-4xl'>Ram Shiv</div> */}
-      <div className='mt-8'/>
-      <Main button1="Inactive products"/>
-    </div>
+    <Router>
+      <ShopRoutes />
+    </Router>
   );
-}
+};
 
 export default App;
