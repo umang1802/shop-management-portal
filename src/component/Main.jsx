@@ -93,9 +93,9 @@ function Main(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // const response = await axios.get("http://localhost:3002/products");
-        setdbData(result);
-        console.log(result);
+        const response = await axios.get("http://localhost:3002/products");
+        setdbData(response.data);
+        // console.log(result);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

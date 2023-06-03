@@ -191,7 +191,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.warehouse_stock[0].quantity
+                        item.warehouse_stock[0] && item.warehouse_stock[0].quantity && item.warehouse_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -204,7 +204,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.outlet_stock[0].quantity
+                        item.outlet_stock[0] && item.outlet_stock[0].quantity && item.outlet_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -217,7 +217,7 @@ const Table = ({ data, pageSize }) => {
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.outlet_stock[1].quantity
+                        item.outlet_stock[1] && item.outlet_stock[1].quantity && item.outlet_stock[1].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
