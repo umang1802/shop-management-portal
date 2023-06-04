@@ -6,17 +6,23 @@ import axios from "axios";
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [data, setData] = useState([]);
+  const fetchData =  () => {
+    axios.get("https://shop-service-fo3n.onrender.com/get-categories").then(resp => {
+      console.log('rowsss---->', resp.data.rows);
+      setData(resp.data.rows);
+    }).catch(err => {
+      console.error('Error fetching data:', err);
+    })
+    // try {
+    //   const response = await axios.get("https://shop-service-fo3n.onrender.com/get-categories");
+    //   console.log('rowsss---->', response.rows)
+    //   setData(response.rows);
+    // } catch (error) {
+    //   console.error('Error fetching data:', error);
+    // }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("https://shop-service-fo3n.onrender.com/get-categories");
-        setData(response.rows);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
     fetchData();
   }, []);
 
@@ -83,7 +89,7 @@ const AddCategory = () => {
       </tr>
     </thead>
     <tbody>
-      {data.map((item) => (
+      {data && data.map((item) => (
           <tr >
           <td class=" px-4 py-2">{item.name}</td>
           <td class=" px-4 py-2">{item.product_count}</td>
