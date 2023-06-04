@@ -10,7 +10,7 @@ const AddCategory = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/get-categories");
+        const response = await axios.get("https://shop-service-fo3n.onrender.com/get-categories");
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -31,7 +31,7 @@ const AddCategory = () => {
     } else {
       try {
         // Make an API call to insert a new category
-        const response = await axios.post("http://localhost:3002/categories", {
+        const response = await axios.post("https://shop-service-fo3n.onrender.com/categories", {
           categoryName,
         });
         // Reset the form after successful submission
