@@ -15,9 +15,9 @@ const AddProduct = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:3002/get-categories"
+          "https://shop-service-fo3n.onrender.com/get-categories"
         );
-        setCategories(response.data);
+        setCategories(response.data.rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -38,7 +38,7 @@ const AddProduct = () => {
     e.preventDefault();
     // Send the product data to the server or perform any other action
     console.log(product);
-    const response = await axios.post("http://localhost:3002/add-products", {
+    const response = await axios.post("https://shop-service-fo3n.onrender.com/add-products", {
       ...product,
     });
     console.log("New product added:", response.data);

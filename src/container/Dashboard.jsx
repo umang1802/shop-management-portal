@@ -3,6 +3,7 @@ import ProductTable from "../component/Table/ProductTable";
 import AddCategory from '../component/AddCategory';
 import AddProduct from '../component/AddProduct';
 import Content from '../component/Content';
+import axios from 'axios';
 
 
 const pageSize = 5;
@@ -75,9 +76,9 @@ export default function Dashboard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                // const response = await axios.get("http://localhost:3002/products");
-                setdbData(result);
-                console.log(result);
+                const response = await axios.get("https://shop-service-fo3n.onrender.com/products");
+                setdbData(response.data);
+                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
