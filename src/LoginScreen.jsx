@@ -1,12 +1,13 @@
-import React, { useState, useContext} from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import AuthContext from './authentication/AuthContext';
-import { redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { AuthContext } from './authentication/AuthContext';
 
 const LoginScreen = () => {
   const [name, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { login } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -21,9 +22,10 @@ const LoginScreen = () => {
 
     try {
       const response = await axios.post('https://shop-service-fo3n.onrender.com/api/users/login', { name, password });
-      if(response.data.rows.length>0){
-        setIsAuthenticated(true);
-      }else{
+      if (response.data.rows.length > 0) {
+        login();
+        navigate('/dashboard');
+      } else {
         alert('Enter a valid username and password');
       }
     } catch (error) {
@@ -32,7 +34,6 @@ const LoginScreen = () => {
   };
 
   return (
-    <AuthContext.Provider value={isAuthenticated}>
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-lg">
         <h1 className="text-2xl font-bold mb-4">Login</h1>
@@ -70,7 +71,6 @@ const LoginScreen = () => {
         </form>
       </div>
     </div>
-    </AuthContext.Provider>
   );
 };
 
