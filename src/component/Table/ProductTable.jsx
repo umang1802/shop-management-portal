@@ -1,16 +1,16 @@
-import React from 'react';
-import {MultiSelect} from 'react-multi-select-component';
+import React from "react";
+import { MultiSelect } from "react-multi-select-component";
 
 const Table = ({ data, pageSize }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [editItem, setEditItem] = React.useState(null);
   const [editedData, setEditedData] = React.useState({});
   const [sortBy, setSortBy] = React.useState(null);
-  const [sortDirection, setSortDirection] = React.useState('asc');
+  const [sortDirection, setSortDirection] = React.useState("asc");
   const [categoryFilters, setCategoryFilters] = React.useState([]);
   const [filteredData, setFilteredData] = React.useState([]);
 
-  const categories = ['Category 1', 'Category 2', 'Category 3']; // Replace with your own categories
+  const categories = ["Category 1", "Category 2", "Category 3"]; // Replace with your own categories
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
@@ -19,7 +19,10 @@ const Table = ({ data, pageSize }) => {
 
   React.useEffect(() => {
     const filterData = data.filter((item) => {
-      if (categoryFilters.length === 0 || categoryFilters.some((filter) => filter.value === item.category)) {
+      if (
+        categoryFilters.length === 0 ||
+        categoryFilters.some((filter) => filter.value === item.category)
+      ) {
         return true;
       }
       return false;
@@ -43,11 +46,34 @@ const Table = ({ data, pageSize }) => {
   };
 
   const handleSave = () => {
-    // Handle save logic here
-    console.log('Save', editedData);
+    // Extract the edited stock values for the selected outlet
+    const { warehouseStock, outletStock } = editedData;
+  
+    // Check if the edited stock values are valid numbers
+    const warehouseQuantity = parseInt(warehouseStock);
+    const outletQuantity = parseInt(outletStock);
+  
+    if (Number.isNaN(warehouseQuantity) || Number.isNaN(outletQuantity)) {
+      console.log("Invalid stock quantity");
+      return;
+    }
+  
+    // Create the updated data object
+    const updatedData = {
+      warehouseStock: warehouseQuantity,
+      outletStock: outletQuantity,
+      productId: editedData.productId,
+      outletId: editedData.outletId,
+      warehouseId: editedData.warehouseId,
+    };
+  
+    // Handle the updated data as needed
+    console.log("Save", updatedData);
+  
     setEditItem(null);
     setEditedData({});
   };
+  
 
   const handleReset = () => {
     setEditedData(editItem);
@@ -55,10 +81,10 @@ const Table = ({ data, pageSize }) => {
 
   const handleSort = (column) => {
     if (sortBy === column) {
-      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
     } else {
       setSortBy(column);
-      setSortDirection('asc');
+      setSortDirection("asc");
     }
   };
 
@@ -68,17 +94,21 @@ const Table = ({ data, pageSize }) => {
 
   const sortedData = React.useMemo(() => {
     let sorted = [...filteredData];
-    if (sortBy === 'stockWorkshop' || sortBy === 'stockOutlet01' || sortBy === 'stockOutlet02') {
+    if (
+      sortBy === "stockWorkshop" ||
+      sortBy === "stockOutlet01" ||
+      sortBy === "stockOutlet02"
+    ) {
       sorted = sorted.sort((a, b) => {
-        if (sortDirection === 'asc') {
+        if (sortDirection === "asc") {
           return a[sortBy] - b[sortBy];
         } else {
           return b[sortBy] - a[sortBy];
         }
       });
-    } else if (sortBy === 'category') {
+    } else if (sortBy === "category") {
       sorted = sorted.sort((a, b) => {
-        if (sortDirection === 'asc') {
+        if (sortDirection === "asc") {
           return a[sortBy].localeCompare(b[sortBy]);
         } else {
           return b[sortBy].localeCompare(a[sortBy]);
@@ -107,8 +137,11 @@ const Table = ({ data, pageSize }) => {
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     Category
-                    <MultiSelect
-                      options={categories.map((category) => ({ label: category, value: category }))}
+                    {/* <MultiSelect
+                      options={categories.map((category) => ({
+                        label: category,
+                        value: category,
+                      }))}
                       value={categoryFilters}
                       onChange={handleCategoryFilterChange}
                       labelledBy="Select"
@@ -116,10 +149,10 @@ const Table = ({ data, pageSize }) => {
                       hasSelectAll={false}
                       disableSearch={true}
                       overrideStrings={{
-                        selectSomeItems: 'Select categories',
-                        allItemsAreSelected: 'All categories are selected',
+                        selectSomeItems: "Select categories",
+                        allItemsAreSelected: "All categories are selected",
                       }}
-                    />
+                    /> */}
                   </th>
                   <th
                     scope="col"
@@ -151,75 +184,75 @@ const Table = ({ data, pageSize }) => {
                 {sortedData.map((item) => (
                   <tr key={item.id}>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {editItem === item ? (
-                        <input
-                          type="text"
-                          name="productName"
-                          value={editedData.productName || ''}
-                          onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
-                        />
-                      ) : (
+                      {
+                      // editItem === item ? (
+                      //   <input
+                      //     type="text"
+                      //     name="productName"
+                      //     value={editedData.productName || ""}
+                      //     onChange={handleInputChange}
+                      //     className="px-2 py-1 border border-gray-300 rounded-sm"
+                      //   />
+                      // ) : (
                         item.product_name
-                      )}
+                      // )
+                      }
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      {editItem === item ? (
-                        <select
-                          name="category"
-                          value={editedData.category || ''}
-                          onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
-                        >
-                          {categories.map((category) => (
-                            <option key={category} value={category}>
-                              {category}
-                            </option>
-                          ))}
-                        </select>
-                      ) : (
+                      {
+                      // editItem === item ? (
+                      //   <select
+                      //     name="category"
+                      //     value={editedData.category || ""}
+                      //     onChange={handleInputChange}
+                      //     className="px-2 py-1 border border-gray-300 rounded-sm"
+                      //   >
+                      //     {categories.map((category) => (
+                      //       <option key={category} value={category}>
+                      //         {category}
+                      //       </option>
+                      //     ))}
+                      //   </select>
+                      // ) : (
                         item.category.category_name
-                      )}
+                      // )
+                      }
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
+                    {item.warehouse_stock.map(wareHouse =>{
+                      return(<td className="px-6 py-4 whitespace-nowrap">
                       {editItem === item ? (
                         <input
                           type="number"
-                          name="stockWorkshop"
-                          value={editedData.stockWorkshop || ''}
+                          name="warehouseStock"
+                          value={editedData.warehouseStock || ""}
                           onChange={handleInputChange}
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.warehouse_stock[0] && item.warehouse_stock[0].quantity && item.warehouse_stock[0].quantity
+                        wareHouse &&
+                        wareHouse.quantity &&
+                        wareHouse.quantity
                       )}
-                    </td>
+                    </td>)
+                    })}
+                    {item.outlet_stock.map(outlet =>{
+                      return(
                     <td className="px-6 py-4 whitespace-nowrap">
                       {editItem === item ? (
                         <input
                           type="number"
-                          name="stockOutlet01"
-                          value={editedData.stockOutlet01 || ''}
+                          name="outletStock"
+                          value={editedData.outletStock || ""}
                           onChange={handleInputChange}
                           className="px-2 py-1 border border-gray-300 rounded-sm"
                         />
                       ) : (
-                        item.outlet_stock[0] && item.outlet_stock[0].quantity && item.outlet_stock[0].quantity
+                        outlet &&
+                        outlet.quantity &&
+                        outlet.quantity
                       )}
-                    </td>
-                    <td className="px-6 py-4 whitespace-nowrap">
-                      {editItem === item ? (
-                        <input
-                          type="number"
-                          name="stockOutlet02"
-                          value={editedData.stockOutlet02 || ''}
-                          onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
-                        />
-                      ) : (
-                        item.outlet_stock[1] && item.outlet_stock[1].quantity && item.outlet_stock[1].quantity
-                      )}
-                    </td>
+                    </td>)
+                    })}
                     <td className="px-6 py-4 whitespace-nowrap">
                       {editItem === item ? (
                         <div>
@@ -253,9 +286,15 @@ const Table = ({ data, pageSize }) => {
         </div>
       </div>
       <div className="flex justify-between items-center mt-4">
-        <nav className="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
+        <nav
+          className="relative z-0 inline-flex rounded-md shadow-sm"
+          aria-label="Pagination"
+        >
           <div className="flex justify-end mt-4">
-            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            <nav
+              className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px"
+              aria-label="Pagination"
+            >
               <button
                 onClick={() => handlePageChange(currentPage - 1)}
                 disabled={currentPage === 1}
@@ -267,8 +306,11 @@ const Table = ({ data, pageSize }) => {
                 <button
                   key={index}
                   onClick={() => handlePageChange(index + 1)}
-                  className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${currentPage === index + 1 ? 'text-indigo-500 bg-indigo-100' : 'text-gray-700 hover:bg-gray-50'
-                    }`}
+                  className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
+                    currentPage === index + 1
+                      ? "text-indigo-500 bg-indigo-100"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
                 >
                   {index + 1}
                 </button>
