@@ -15,7 +15,7 @@ const AddProduct = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://shop-service-fo3n.onrender.com/get-categories"
+          "https://shop-service-fo3n.onrender.com/api/category/get"
         );
         setCategories(response.data.rows);
       } catch (error) {

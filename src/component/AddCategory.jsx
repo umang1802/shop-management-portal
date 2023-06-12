@@ -7,19 +7,12 @@ const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
   const [data, setData] = useState([]);
   const fetchData =  () => {
-    axios.get("https://shop-service-fo3n.onrender.com/get-categories").then(resp => {
+    axios.get("https://shop-service-fo3n.onrender.com/api/category/get").then(resp => {
       console.log('rowsss---->', resp.data.rows);
       setData(resp.data.rows);
     }).catch(err => {
       console.error('Error fetching data:', err);
     })
-    // try {
-    //   const response = await axios.get("https://shop-service-fo3n.onrender.com/get-categories");
-    //   console.log('rowsss---->', response.rows)
-    //   setData(response.rows);
-    // } catch (error) {
-    //   console.error('Error fetching data:', error);
-    // }
   };
 
   useEffect(() => {
@@ -37,7 +30,7 @@ const AddCategory = () => {
     } else {
       try {
         // Make an API call to insert a new category
-        const response = await axios.post("https://shop-service-fo3n.onrender.com/categories", {
+        const response = await axios.post("https://shop-service-fo3n.onrender.com/api/category/add", {
           categoryName,
         });
         // Reset the form after successful submission
