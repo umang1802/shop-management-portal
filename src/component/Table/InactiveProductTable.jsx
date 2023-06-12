@@ -21,8 +21,8 @@ function InactiveProductTable() {
 
   const handleActivateProduct = () => {};
   return (<>
-  <div className="text-2xl text-gray-800 mt-8">Inactive Product List ({data.length})</div>
-    <div className="flex justify-center bg-white rounded-lg overflow-hidden shadow-xl">
+  <div className="text-2xl text-gray-800">Inactive Product List ({data.length})</div>
+    <div className="flex justify-center bg-white rounded-lg overflow-hidden shadow-xl mt-8">
   <div className="w-full sm:w-4/5 md:w-3/5">
     <table className="table-auto w-full">
       <thead>

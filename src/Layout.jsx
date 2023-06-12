@@ -269,7 +269,7 @@ const Layout = ({ children }) => {
 
                 </div>
             </div>
-            <div className="w-4/5 px-4 py-4">
+            <div className="w-4/5 px-4 py-4 bg-gray-100">
                 <div>{children}</div>
             </div>
         </div>

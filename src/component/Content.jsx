@@ -25,25 +25,25 @@ function Content(props) {
         {(props.showAddProduct || props.showAddCategory) ? (
           <div
             onClick={props.backToShowProduct}
-            className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 mb-2 mr-2"
+            className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2"
           >
             Back
           </div>
         ) : (
-          <div className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 mb-2 mr-2">
+          <div className="rounded-full border-2 border-gray-400 px-3 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2">
             Add Inactive Products
           </div>
         )}
         <div className="ml-auto flex items-center">
           <div
             onClick={props.initiateAddNewProduct}
-            className="rounded-full bg-white border-2 border-blue-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 cursor-pointer hover:bg-blue-200 mb-2 mr-2"
+            className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2 mr-2"
           >
             Add New Products
           </div>
           <div
             onClick={props.initiateAddNewCategory}
-            className="rounded-full bg-white border-2 border-blue-400 px-6 py-3 shadow-md text-sm font-semibold text-gray-800 cursor-pointer hover:bg-blue-200 mb-2"
+            className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
           >
             Add New Category
           </div>
