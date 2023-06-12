@@ -8,6 +8,7 @@ import Bills from './container/Bills';
 import Expense from './container/Expense';
 import LoginScreen from './LoginScreen';
 import { AuthContext } from './authentication/AuthContext';
+import InactiveProductTable from './component/Table/InactiveProductTable';
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
     const { isAuthenticated } = React.useContext(AuthContext);
@@ -48,7 +49,7 @@ const ShopRoutes = () => {
                                     />
                                     <PrivateRoute
                                         path="/expense"
-                                        component={Expense}
+                                        component={InactiveProductTable}
                                     />
                                     {/* Add more routes here */}
                                 </Layout>

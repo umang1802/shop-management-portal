@@ -8,65 +8,6 @@ import axios from 'axios';
 
 const pageSize = 5;
 
-const result = [
-    {
-        "id": 1,
-        "product_name": "Laddu",
-        "category": {
-            "category_id": 1,
-            "category_name": "Desi Ghee"
-        },
-        "warehouse_stock": [
-            {
-                "warehouse_id": 1,
-                "quantity": 230
-            },
-            {
-                "warehouse_id": 1,
-                "quantity": 230
-            }
-        ],
-        "outlet_stock": [
-            {
-                "outlet_id": 2,
-                "quantity": 80
-            },
-            {
-                "outlet_id": 1,
-                "quantity": 120
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "product_name": "New Product",
-        "category": {
-            "category_id": 1,
-            "category_name": "Desi Ghee"
-        },
-        "warehouse_stock": [
-            {
-                "warehouse_id": 1,
-                "quantity": 120
-            },
-            {
-                "warehouse_id": 1,
-                "quantity": 120
-            }
-        ],
-        "outlet_stock": [
-            {
-                "outlet_id": 2,
-                "quantity": 56
-            },
-            {
-                "outlet_id": 1,
-                "quantity": 12
-            }
-        ]
-    }
-]
-
 export default function Dashboard() {
     const [dbData, setdbData] = useState([]);
     const [showProductTable, setShowProductTable] = useState(true);
@@ -100,10 +41,16 @@ export default function Dashboard() {
         setShowAddProduct(false);
         console.log('initiated2')
     }
+
+    const backToShowProduct = () => {
+        setShowProductTable(true);
+        setShowAddProduct(false);
+        setShowAddCategory(false);
+    }
     return (
         <div>
             <div className="mt-10">
-                <Content initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct} />
+                <Content showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct} />
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}
                 {showAddCategory && <AddCategory />}
