@@ -45,8 +45,8 @@ const AddCategory = () => {
  
 
   return (<>
-    <div className="flex justify-center">
-      <div className="w-4/5 bg-white rounded-lg overflow-hidden shadow-xl">
+    <div className="flex justify-center p-6">
+      <div className="w-4/5 bg-white rounded-lg overflow-hidden shadow-xl p-6">
         <form onSubmit={handleSubmit}>
           <div className="text-blue-700 m-4">Category Name </div>
           <input
@@ -71,9 +71,9 @@ const AddCategory = () => {
       </div>
     </div>
     <div className="flex justify-center mt-8">
-      <div className="w-4/5 bg-white rounded-lg overflow-hidden shadow-xl border">
+      <div className="w-4/5 bg-white rounded-lg overflow-hidden shadow-xl border p-6">
     <div class="w-full">
-  <table class="table-auto w-full">
+  <table class="table-auto w-full p-6">
     <thead>
       <tr>
         <td class="px- py-2">Category</td>

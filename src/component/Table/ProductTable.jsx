@@ -1,5 +1,5 @@
 import React from 'react';
-import {MultiSelect} from 'react-multi-select-component';
+import { MultiSelect } from 'react-multi-select-component';
 
 const Table = ({ data, pageSize }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -19,7 +19,10 @@ const Table = ({ data, pageSize }) => {
 
   React.useEffect(() => {
     const filterData = data.filter((item) => {
-      if (categoryFilters.length === 0 || categoryFilters.some((filter) => filter.value === item.category)) {
+      if (
+        categoryFilters.length === 0 ||
+        categoryFilters.some((filter) => filter.value === item.category)
+      ) {
         return true;
       }
       return false;
@@ -68,7 +71,11 @@ const Table = ({ data, pageSize }) => {
 
   const sortedData = React.useMemo(() => {
     let sorted = [...filteredData];
-    if (sortBy === 'stockWorkshop' || sortBy === 'stockOutlet01' || sortBy === 'stockOutlet02') {
+    if (
+      sortBy === 'stockWorkshop' ||
+      sortBy === 'stockOutlet01' ||
+      sortBy === 'stockOutlet02'
+    ) {
       sorted = sorted.sort((a, b) => {
         if (sortDirection === 'asc') {
           return a[sortBy] - b[sortBy];
@@ -89,7 +96,7 @@ const Table = ({ data, pageSize }) => {
   }, [filteredData, sortBy, sortDirection]);
 
   return (
-    <div className="flex flex-col">
+    <div className="mt-6 flex flex-col">
       <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
           <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -108,7 +115,10 @@ const Table = ({ data, pageSize }) => {
                   >
                     Category
                     <MultiSelect
-                      options={categories.map((category) => ({ label: category, value: category }))}
+                      options={categories.map((category) => ({
+                        label: category,
+                        value: category,
+                      }))}
                       value={categoryFilters}
                       onChange={handleCategoryFilterChange}
                       labelledBy="Select"
@@ -157,7 +167,7 @@ const Table = ({ data, pageSize }) => {
                           name="productName"
                           value={editedData.productName || ''}
                           onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
+                          className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
                         />
                       ) : (
                         item.product_name
@@ -169,7 +179,7 @@ const Table = ({ data, pageSize }) => {
                           name="category"
                           value={editedData.category || ''}
                           onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
+                          className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
                         >
                           {categories.map((category) => (
                             <option key={category} value={category}>
@@ -188,10 +198,12 @@ const Table = ({ data, pageSize }) => {
                           name="stockWorkshop"
                           value={editedData.stockWorkshop || ''}
                           onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
+                          className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
                         />
                       ) : (
-                        item.warehouse_stock[0] && item.warehouse_stock[0].quantity && item.warehouse_stock[0].quantity
+                        item.warehouse_stock[0] &&
+                        item.warehouse_stock[0].quantity &&
+                        item.warehouse_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -201,10 +213,12 @@ const Table = ({ data, pageSize }) => {
                           name="stockOutlet01"
                           value={editedData.stockOutlet01 || ''}
                           onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
+                          className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
                         />
                       ) : (
-                        item.outlet_stock[0] && item.outlet_stock[0].quantity && item.outlet_stock[0].quantity
+                        item.outlet_stock[0] &&
+                        item.outlet_stock[0].quantity &&
+                        item.outlet_stock[0].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -214,24 +228,26 @@ const Table = ({ data, pageSize }) => {
                           name="stockOutlet02"
                           value={editedData.stockOutlet02 || ''}
                           onChange={handleInputChange}
-                          className="px-2 py-1 border border-gray-300 rounded-sm"
+                          className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
                         />
                       ) : (
-                        item.outlet_stock[1] && item.outlet_stock[1].quantity && item.outlet_stock[1].quantity
+                        item.outlet_stock[1] &&
+                        item.outlet_stock[1].quantity &&
+                        item.outlet_stock[1].quantity
                       )}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       {editItem === item ? (
-                        <div>
+                        <div className="flex space-x-2">
                           <button
                             onClick={handleSave}
-                            className="px-2 py-1 ml-2 bg-indigo-500 text-white rounded-sm"
+                            className="px-2 py-1 bg-indigo-500 text-white rounded-sm"
                           >
                             Save
                           </button>
                           <button
                             onClick={handleReset}
-                            className="px-2 py-1 ml-2 bg-gray-500 text-white rounded-sm"
+                            className="px-2 py-1 bg-gray-500 text-white rounded-sm"
                           >
                             Reset
                           </button>
@@ -251,64 +267,41 @@ const Table = ({ data, pageSize }) => {
             </table>
           </div>
         </div>
-      </div>
-      <div className="flex justify-between items-center mt-4">
-        <nav className="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
-          <div className="flex justify-end mt-4">
-            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
-              <button
-                onClick={() => handlePageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Previous
-              </button>
-              {[...Array(totalPages)].map((_, index) => (
+        <div className="flex justify-between items-center mt-4">
+          <nav className="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
+            <div className="flex justify-end mt-4">
+              <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
                 <button
-                  key={index}
-                  onClick={() => handlePageChange(index + 1)}
-                  className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${currentPage === index + 1 ? 'text-indigo-500 bg-indigo-100' : 'text-gray-700 hover:bg-gray-50'
-                    }`}
+                  onClick={() => handlePageChange(currentPage - 1)}
+                  disabled={currentPage === 1}
+                  className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
                 >
-                  {index + 1}
+                  Previous
                 </button>
-              ))}
-              <button
-                onClick={() => handlePageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                Next
-              </button>
-            </nav>
-          </div>
-        </nav>
-        {/* <div className="space-x-2">
-          <button
-            className="px-2 py-1 border border-gray-300 rounded-sm"
-            onClick={() => handleSort('category')}
-          >
-            Sort by Category
-          </button>
-          <button
-            className="px-2 py-1 border border-gray-300 rounded-sm"
-            onClick={() => handleSort('stockWorkshop')}
-          >
-            Sort by Stock (Workshop)
-          </button>
-          <button
-            className="px-2 py-1 border border-gray-300 rounded-sm"
-            onClick={() => handleSort('stockOutlet01')}
-          >
-            Sort by Stock (Outlet 01)
-          </button>
-          <button
-            className="px-2 py-1 border border-gray-300 rounded-sm"
-            onClick={() => handleSort('stockOutlet02')}
-          >
-            Sort by Stock (Outlet 02)
-          </button>
-        </div> */}
+                {[...Array(totalPages)].map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => handlePageChange(index + 1)}
+                    className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
+                      currentPage === index + 1
+                        ? 'text-indigo-500 bg-indigo-100'
+                        : 'text-gray-700 hover:bg-gray-50'
+                    }`}
+                  >
+                    {index + 1}
+                  </button>
+                ))}
+                <button
+                  onClick={() => handlePageChange(currentPage + 1)}
+                  disabled={currentPage === totalPages}
+                  className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+                >
+                  Next
+                </button>
+              </nav>
+            </div>
+          </nav>
+        </div>
       </div>
     </div>
   );
