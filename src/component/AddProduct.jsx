@@ -54,7 +54,7 @@ const AddProduct = () => {
   return (
     <div>
       <div className="flex bg-white px-8 py-8 shadow-md rounded-md">
-        <div className="w-1/2 p-6">
+        <div className="w-full lg:w-1/2 xl:w-1/2 p-6">
           <div className="flex flex-col items-start w-full">
             <div className="text-blue-600 text-base">Product Name</div>
             <div className="w-full mt-2">
@@ -124,7 +124,7 @@ const AddProduct = () => {
             </div>
           </div>
         </div>
-        <div className="w-1/2"></div>
+        <div className="hidden lg:block xl:block w-1/2"></div>
       </div>
     </div>
   );
