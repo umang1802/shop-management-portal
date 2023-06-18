@@ -22,7 +22,7 @@ function Content(props) {
         </div>
       </div>
       <div className="mt-6 flex flex-wrap">
-        {(props.showAddProduct || props.showAddCategory) ? (
+        {(props.showAddProduct || props.showAddCategory || props.showInactiveProduct) ? (
           <div
             onClick={props.backToShowProduct}
             className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2"
@@ -30,7 +30,7 @@ function Content(props) {
             Back
           </div>
         ) : (
-          <div className="rounded-full border-2 border-gray-400 px-3 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2">
+          <div onClick={props.initiateShowInactiveProduct} className="rounded-full border-2 border-gray-400 px-3 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2">
             Add Inactive Products
           </div>
         )}

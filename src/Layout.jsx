@@ -112,7 +112,7 @@ const Layout = ({ children }) => {
                         </div>
                     </NavLink>
 
-
+                 <NavLink exact to="/special-order" activeClassName="active">
                     <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                         <svg
                             width="30"
@@ -129,11 +129,12 @@ const Layout = ({ children }) => {
                         </svg>
 
                         <div class="ml-4 text-xl font-semibold text-gray-800 hover:text-blue-400">
-                            <NavLink exact to="/offer" activeClassName="active">
-                                Special Offer
-                            </NavLink>
+                           
+                                Special Orders
+                           
                         </div>
                     </div>
+                    </NavLink>
                     <NavLink exact to="/expense" activeClassName="active">
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg

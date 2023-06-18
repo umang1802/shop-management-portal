@@ -4,6 +4,7 @@ import AddCategory from '../component/AddCategory';
 import AddProduct from '../component/AddProduct';
 import Content from '../component/Content';
 import axios from 'axios';
+import InactiveProductTable from '../component/Table/InactiveProductTable'
 
 
 const pageSize = 5;
@@ -13,6 +14,7 @@ export default function Dashboard() {
     const [showProductTable, setShowProductTable] = useState(true);
     const [showAddCategory, setShowAddCategory] = useState(false);
     const [showAddProduct, setShowAddProduct] = useState(false);
+    const [showInactiveProduct, setShowInactiveProduct] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -32,28 +34,38 @@ export default function Dashboard() {
         setShowProductTable(false);
         setShowAddCategory(false);
         setShowAddProduct(true);
-        console.log('initiated1')
+        setShowInactiveProduct(false);
     }
 
     const initiateAddNewCategory = () => {
         setShowProductTable(false);
         setShowAddCategory(true);
         setShowAddProduct(false);
-        console.log('initiated2')
+        setShowInactiveProduct(false);
     }
 
     const backToShowProduct = () => {
         setShowProductTable(true);
         setShowAddProduct(false);
         setShowAddCategory(false);
+        setShowInactiveProduct(false);
     }
+
+    const initiateShowInactiveProduct = () =>{
+        setShowInactiveProduct(true);
+        setShowProductTable(false);
+        setShowAddCategory(false);
+        setShowAddProduct(false);
+    }
+
     return (
         <div>
             <div className="mt-10">
-                <Content showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct} />
+                <Content showInactiveProduct={showInactiveProduct} showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct}  initiateShowInactiveProduct={initiateShowInactiveProduct}/>
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}
                 {showAddCategory && <AddCategory />}
+                {showInactiveProduct && <InactiveProductTable /> }
             </div>
         </div>
     )

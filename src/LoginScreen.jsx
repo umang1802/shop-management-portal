@@ -24,7 +24,7 @@ const LoginScreen = () => {
       const response = await axios.post('https://shop-service-fo3n.onrender.com/api/users/login', { name, password });
       if (response.data.rows.length > 0) {
         login();
-        navigate('/dashboard');
+        navigate('/');
       } else {
         alert('Enter a valid username and password');
       }
