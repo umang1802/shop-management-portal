@@ -4,74 +4,17 @@ import AddCategory from '../component/AddCategory';
 import AddProduct from '../component/AddProduct';
 import Content from '../component/Content';
 import axios from 'axios';
+import InactiveProductTable from '../component/Table/InactiveProductTable'
 
 
 const pageSize = 5;
-
-const result = [
-    {
-        "id": 1,
-        "product_name": "Laddu",
-        "category": {
-            "category_id": 1,
-            "category_name": "Desi Ghee"
-        },
-        "warehouse_stock": [
-            {
-                "warehouse_id": 1,
-                "quantity": 230
-            },
-            {
-                "warehouse_id": 1,
-                "quantity": 230
-            }
-        ],
-        "outlet_stock": [
-            {
-                "outlet_id": 2,
-                "quantity": 80
-            },
-            {
-                "outlet_id": 1,
-                "quantity": 120
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "product_name": "New Product",
-        "category": {
-            "category_id": 1,
-            "category_name": "Desi Ghee"
-        },
-        "warehouse_stock": [
-            {
-                "warehouse_id": 1,
-                "quantity": 120
-            },
-            {
-                "warehouse_id": 1,
-                "quantity": 120
-            }
-        ],
-        "outlet_stock": [
-            {
-                "outlet_id": 2,
-                "quantity": 56
-            },
-            {
-                "outlet_id": 1,
-                "quantity": 12
-            }
-        ]
-    }
-]
 
 export default function Dashboard() {
     const [dbData, setdbData] = useState([]);
     const [showProductTable, setShowProductTable] = useState(true);
     const [showAddCategory, setShowAddCategory] = useState(false);
     const [showAddProduct, setShowAddProduct] = useState(false);
+    const [showInactiveProduct, setShowInactiveProduct] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -91,22 +34,38 @@ export default function Dashboard() {
         setShowProductTable(false);
         setShowAddCategory(false);
         setShowAddProduct(true);
-        console.log('initiated1')
+        setShowInactiveProduct(false);
     }
 
     const initiateAddNewCategory = () => {
         setShowProductTable(false);
         setShowAddCategory(true);
         setShowAddProduct(false);
-        console.log('initiated2')
+        setShowInactiveProduct(false);
     }
+
+    const backToShowProduct = () => {
+        setShowProductTable(true);
+        setShowAddProduct(false);
+        setShowAddCategory(false);
+        setShowInactiveProduct(false);
+    }
+
+    const initiateShowInactiveProduct = () =>{
+        setShowInactiveProduct(true);
+        setShowProductTable(false);
+        setShowAddCategory(false);
+        setShowAddProduct(false);
+    }
+
     return (
         <div>
             <div className="mt-10">
-                <Content initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct} />
+                <Content showInactiveProduct={showInactiveProduct} showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct}  initiateShowInactiveProduct={initiateShowInactiveProduct}/>
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}
                 {showAddCategory && <AddCategory />}
+                {showInactiveProduct && <InactiveProductTable /> }
             </div>
         </div>
     )

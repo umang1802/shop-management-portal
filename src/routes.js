@@ -1,67 +1,85 @@
-import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
-import Layout from './Layout';
-import Dashboard from './container/Dashboard';
-import Products from './container/Products';
-import Offer from './container/Offer';
-import Bills from './container/Bills';
-import Expense from './container/Expense';
-import LoginScreen from './LoginScreen';
-import { AuthContext } from './authentication/AuthContext';
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+import Layout from "./Layout";
+import Dashboard from "./container/Dashboard";
+import Products from "./container/Products";
+import Offer from "./container/SpecialOrders";
+import Expense from "./container/Expense";
+import LoginScreen from "./LoginScreen";
+import { AuthContext } from "./authentication/AuthContext";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-    const { isAuthenticated } = React.useContext(AuthContext);
+  const { isAuthenticated } = React.useContext(AuthContext);
 
-    return isAuthenticated ? (
-        <Component {...rest} />
-    ) : (
-        <Navigate to="/login" replace={true} />
-    );
+  return isAuthenticated ? (
+    <Component {...rest} />
+  ) : (
+    <Navigate to="/login" replace={true} />
+  );
 };
 
 const ShopRoutes = () => {
-    return (
-        <AuthContext.Consumer>
-            {({ isAuthenticated }) => (
-                <Routes>
-                    <Route path="/login" element={<LoginScreen />} />
-                    <Route
-                        path="/"
-                        element={
-                            isAuthenticated ? (
-                                <Layout>
-                                    <PrivateRoute
-                                        path="/"
-                                        component={Dashboard}
-                                    />
-                                    <PrivateRoute
-                                        path="/products"
-                                        component={Products}
-                                    />
-                                    <PrivateRoute
-                                        path="/offer"
-                                        component={Offer}
-                                    />
-                                    <PrivateRoute
-                                        path="/bills"
-                                        component={Bills}
-                                    />
-                                    <PrivateRoute
-                                        path="/expense"
-                                        component={Expense}
-                                    />
-                                    {/* Add more routes here */}
-                                </Layout>
-                            ) : (
-                                <Navigate to="/login" replace={true} />
-                            )
-                        }
-                    />
-                    <Route path="/*" element={<Navigate to="/" />} />
-                </Routes>
-            )}
-        </AuthContext.Consumer>
-    );
+  return (
+    <AuthContext.Consumer>
+      {({ isAuthenticated }) => (
+        <Routes>
+          <Route path="/login" element={<LoginScreen />} />
+          <Route
+            path="/"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Dashboard />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/product"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Products />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/special-order"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Offer />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/expense"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Expense />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+        </Routes>
+      )}
+    </AuthContext.Consumer>
+  );
 };
 
 export default ShopRoutes;
