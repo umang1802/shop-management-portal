@@ -1,8 +1,20 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Modal from "antd/es/modal/Modal";
 
 function OrderHistory() {
   const [data, setData] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+   
+    setIsModalOpen(true);
+    console.log('Modal opened');
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
   const fetchData = () => {
     axios
       .get("https://shop-service-fo3n.onrender.com/api/order/get-orders")
@@ -43,7 +55,11 @@ function OrderHistory() {
                                   <td className="px-4 py-2 text-center">{item.mobile_number}</td>
                                   <td className="px-4 py-2 text-center">{item.customer_address}</td>
                                   <td className="px-4 py-2 text-center">{item.total_amount}</td>
-                                  <td className="px-4 py-2 text-center hover:cursor-pointer font-extralight">View Order</td>
+                                  <button className="px-4 py-2 text-center hover:cursor-pointer font-extralight" onClick={handleOpenModal}>View Order</button>
+                                  <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                                    <h2>Modal Content</h2>
+                                    <p>This is the content of the modal.</p>
+                                  </Modal>
                               </tr>
                           ))}
                   </tbody>
