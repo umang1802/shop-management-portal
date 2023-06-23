@@ -28,7 +28,7 @@ export default function Dashboard() {
         };
 
         fetchData();
-    }, []);
+    }, [showInactiveProduct]);
 
     const initiateAddNewProduct = () => {
         setShowProductTable(false);
@@ -60,7 +60,7 @@ export default function Dashboard() {
 
     return (
         <div>
-            <div className="mt-10">
+            <div className="mt-4">
                 <Content showInactiveProduct={showInactiveProduct} showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct}  initiateShowInactiveProduct={initiateShowInactiveProduct}/>
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}

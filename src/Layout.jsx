@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
           </div>
         </div>
       </div>
-      <div className="mt-6 w-full lg:w-4/5 xl:w-4/5 lg:px-4 xl:py-4 p-2">
+      <div className="w-full lg:w-4/5 xl:w-4/5 lg:px-4 xl:py-4 p-2">
         <div>{children}</div>
       </div>
       {showMenu && (

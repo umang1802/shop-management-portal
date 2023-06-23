@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-function InactiveProductTable() {
+function InactiveProductTable(props) {
   const [data, setData] = useState([]);
   const fetchData = () => {
     axios
@@ -19,10 +19,24 @@ function InactiveProductTable() {
     fetchData();
   }, []);
 
-  const handleActivateProduct = () => {};
+  const handleActivateProduct = async (productId) => {
+      try {
+        // Make an API call to insert a new category
+        const response = await axios.post(
+          "https://shop-service-fo3n.onrender.com/api/product/activateProduct",
+          {
+            productId,
+          }
+        );
+      } catch (error) {
+        // Handle any errors that occur during the API call
+        console.error("Error:", error.message);
+      }
+      
+  };
   return (<>
   <div className="text-2xl text-gray-800">Inactive Product List ({data.length})</div>
-    <div className="flex justify-center bg-white rounded-lg overflow-hidden shadow-xl mt-8">
+    <div className="flex justify-center bg-white rounded-lg overflow-hidden shadow-xl mt-8 border">
   <div className="w-full sm:w-4/5 md:w-3/5">
     <table className="table-auto w-full">
       <thead>
