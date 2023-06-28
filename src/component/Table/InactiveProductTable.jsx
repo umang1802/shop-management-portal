@@ -28,6 +28,8 @@ function InactiveProductTable(props) {
             productId,
           }
         );
+        alert('Product Activated Successfully');
+        props.backToShowProduct();
       } catch (error) {
         // Handle any errors that occur during the API call
         console.error("Error:", error.message);
@@ -55,8 +57,8 @@ function InactiveProductTable(props) {
               <td
                 className="px-4 py-2 text-center cursor-pointer"
                 onClick={() => handleActivateProduct(item.id)}
-              >
-                Activate Product
+              ><button className="px-4 py-2 text-center hover:cursor-pointer font-extralight">
+                Activate Product</button>
               </td>
             </tr>
           ))}

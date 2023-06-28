@@ -70,7 +70,7 @@ export default function Dashboard() {
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}
                 {showAddCategory && <AddCategory />}
-                {showInactiveProduct && <InactiveProductTable /> }
+                {showInactiveProduct && <InactiveProductTable backToShowProduct={backToShowProduct}/> }
             </div>
         </div>
     )

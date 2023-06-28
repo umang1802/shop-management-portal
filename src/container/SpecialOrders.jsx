@@ -41,8 +41,17 @@ export default function SpecialOrders() {
     setShowProductTable(false);
     setShowAddCategory(false);
     setShowAddProduct(false);
-    // setHeading('Inactive Products');
   };
+
+  const headerColumnArray = [
+    "Order No.",
+    "Order Delivery Date",
+    "Customer Name",
+    "Mobile",
+    "Address",
+    "Amount",
+    "View",
+  ];
 
   return (
     <>
@@ -57,6 +66,7 @@ export default function SpecialOrders() {
         initiateAddNewCategory={initiateAddNewCategory}
         initiateAddNewProduct={initiateAddNewProduct}
         initiateShowInactiveProduct={initiateShowInactiveProduct}
+        subHeading="Special Order"
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">

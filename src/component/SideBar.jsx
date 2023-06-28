@@ -5,7 +5,7 @@ export default function SideBar() {
   return (
     <div className="">
 
-                <div className="hidden xl:block lg:block tex-center text-4xl font-seminold">
+                <div className="hidden xl:block lg:block text-center">
                     <svg width="170" height="60" viewBox="0 0 247 60" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M41.0415 59.6932C32.0579 59.6932 29.41 46.3598 27.9916 38.6997C25.9107 45.5084 23.0739 55.5324 23.0739 58.6532C23.0739 59.1262 22.6954 59.5987 22.1284 59.5987H21.1824C18.9131 59.5987 16.4542 59.2202 15.9812 57.1403C15.8872 56.8563 15.8872 56.4778 15.8872 56.0999C15.8872 53.168 17.3996 46.9268 19.3855 39.7397C22.8849 27.2568 28.0856 12.032 29.599 8.53322C29.8825 7.77625 30.828 7.49277 32.0579 7.49277C34.3273 7.49277 37.4482 8.72272 37.4482 10.4241L37.3537 10.9921C36.4077 13.356 32.9089 23.2855 29.599 33.7825C30.166 33.9709 30.734 34.0659 31.396 34.0659C37.6371 34.0659 44.4458 25.2709 46.8102 16.5713C47.1887 15.2474 47.3772 13.9234 47.3772 12.5995C47.3772 8.91119 45.4863 5.79034 39.8125 5.03439C38.3936 4.84489 36.8802 4.7504 35.4623 4.7504C29.2206 4.7504 22.8849 6.35834 17.6836 9.10019C11.6314 12.221 7.09215 16.9493 5.8632 22.6235C5.7682 23.191 5.48473 23.475 4.91725 23.475C4.72827 23.475 4.44478 23.475 4.1608 23.2855C3.12086 22.813 1.8909 21.3941 0.850449 18.6517C0.377975 17.4228 0 15.7204 0 14.2069C0 12.7885 0.377975 11.4646 1.32393 10.6136C10.0235 3.14299 20.6155 0.495117 31.6794 0.495117H32.8139C45.2968 0.589615 54.4698 5.69637 54.4698 15.2474C54.4698 18.1787 53.6189 21.3941 51.8219 25.0824C48.3231 32.1745 41.6089 38.2272 34.2328 38.9837C35.4623 43.806 37.5421 47.9673 40.096 50.8041C42.4604 53.4525 45.2968 55.0599 48.0391 55.0599L49.1746 54.9649C49.647 54.9649 50.025 55.4384 50.025 55.9109C50.025 56.1944 49.836 56.5723 49.4581 56.7618C47.5667 57.8963 44.2563 59.4097 41.9869 59.6932H41.0415Z" fill="black" />
                         <path d="M73.0979 54.965C70.7335 54.965 68.2746 54.6815 67.2347 52.6956C66.6672 51.7502 66.4782 50.3317 66.4782 48.7243C66.4782 47.7778 66.5727 46.8324 66.6672 45.698C64.4923 49.4803 61.4664 53.1681 57.7776 53.1681H57.5886C53.0499 53.0741 51.1584 49.2913 51.1584 44.3735C51.1584 35.0115 57.9671 21.6781 67.3291 21.6781H67.4241C69.882 21.6781 71.8684 22.5286 73.0029 24.3255L73.6648 22.6236C74.1383 21.8666 74.9888 21.5831 76.1237 21.5831C78.2986 21.5831 81.2305 22.9071 81.2305 24.4205L81.136 24.799C79.9065 27.8248 73.7598 44.09 73.5708 50.8987C73.5708 52.2226 73.6648 53.0741 74.1383 53.0741C77.2591 52.9791 83.2164 40.8747 85.9587 34.9175C86.1477 34.4445 86.4312 34.3495 86.8097 34.3495L87.2827 34.4445C87.5666 34.539 87.7551 34.8225 87.7551 35.201C87.7551 35.39 87.7551 35.39 87.6611 35.6734C84.5403 42.3876 78.6771 54.7765 74.2328 54.965H73.0979ZM69.0316 35.4845C69.5046 34.2555 70.3555 31.7016 70.3555 29.6212C70.3555 28.2973 69.977 27.2568 68.9366 26.9734L68.3696 26.8794C64.1143 26.8794 58.7241 39.7397 58.7241 45.3195C58.7241 46.9268 59.1965 47.8728 60.142 47.8728C62.9794 47.7778 68.0856 37.8488 69.0316 35.4845Z" fill="black" />
@@ -17,11 +17,11 @@ export default function SideBar() {
                     </svg>
                 </div>
                 <div className="mt-10">
-                    <NavLink exact to="/" activeClassName="bg-gray-300">
+                    <NavLink exact to="/" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
-                                width="41"
-                                height="30"
+                                width="25"
+                                height="25"
                                 viewBox="0 0 41 30"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -43,16 +43,16 @@ export default function SideBar() {
                                     fill="#0062FF"
                                 />
                             </svg>
-                            <div class="ml-4 text-lg font-semibold text-gray-800 hover:text-blue-400">
+                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Dashboard
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink exact to="/product" activeClassName="active">
+                    <NavLink exact to="/product" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
-                                width="42"
-                                height="43"
+                                width="25"
+                                height="25"
                                 viewBox="0 0 42 43"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -98,17 +98,17 @@ export default function SideBar() {
                                     stroke="#D0DBE6"
                                 />
                             </svg>
-                            <div class="ml-4 text-lg font-semibold text-gray-800 hover:text-blue-400">
+                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Stocks/Products
                             </div>
                         </div>
                     </NavLink>
 
-                    <NavLink exact to="/special-order" activeClassName="active">
+                    <NavLink exact to="/special-order" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                     <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                         <svg
-                            width="30"
-                            height="38"
+                            width="25"
+                            height="25"
                             viewBox="0 0 30 38"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
@@ -120,16 +120,16 @@ export default function SideBar() {
                             />
                         </svg>
 
-                        <div class="ml-4 text-lg font-semibold text-gray-800 hover:text-blue-400">
+                        <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Special Order
                         </div>
                     </div>
                     </NavLink>
-                    <NavLink exact to="/expense" activeClassName="active">
+                    <NavLink exact to="/expense" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
-                                width="33"
-                                height="38"
+                                width="25"
+                                height="25"
                                 viewBox="0 0 33 38"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -209,7 +209,7 @@ export default function SideBar() {
                                 />
                             </svg>
 
-                            <div class="ml-4 text-lg font-semibold text-gray-800 hover:text-blue-400">
+                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Daily Expense
                             </div>
                         </div>
@@ -217,8 +217,8 @@ export default function SideBar() {
                     <NavLink exact to="/bills" activeClassName="active">
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
-                                width="37"
-                                height="45"
+                                width="25"
+                                height="25"
                                 viewBox="0 0 37 45"
                                 fill="none"
                                 xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +244,7 @@ export default function SideBar() {
                                     stroke="#D0DBE5"
                                 />
                             </svg>
-                            <div class="ml-4 text-lg font-semibold text-gray-800 hover:text-blue-400">
+                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 All Bills
                             </div>
                         </div>

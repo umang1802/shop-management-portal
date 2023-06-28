@@ -71,12 +71,12 @@ const AddCategory = () => {
               >
                 Cancel
               </button>
-              <button
-                className="rounded-full border-2 border-green-300 px-6 py-1 shadow-md text-sm font-semibold text-green-600 m-2"
-                type="submit"
-              >
-                Save
-              </button>
+                <button
+                  className="rounded-full border-2 border-green-300 px-6 py-1 shadow-md text-sm font-semibold text-green-600 m-2"
+                  type="submit"
+                >
+                  Save
+                </button>
             </div>
           </form>
         </div>
