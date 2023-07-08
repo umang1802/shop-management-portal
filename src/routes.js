@@ -7,6 +7,7 @@ import Offer from "./container/SpecialOrders";
 import Expense from "./container/Expense";
 import LoginScreen from "./LoginScreen";
 import { AuthContext } from "./authentication/AuthContext";
+import Bills from './container/Bills'
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { isAuthenticated } = React.useContext(AuthContext);
@@ -70,6 +71,19 @@ const ShopRoutes = () => {
                 <Layout>
                   {" "}
                   <Expense />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/bills"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Bills />
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

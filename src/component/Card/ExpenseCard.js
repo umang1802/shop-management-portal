@@ -1,6 +1,7 @@
 import React from "react";
 
 function ExpenseCard(props) {
+    let sum = 0;
   return (
     <div className="w-full lg:w-2/5 bg-white rounded-xl shadow-lg m-4">
       <table className="w-full">
@@ -11,10 +12,16 @@ function ExpenseCard(props) {
         </tr>
       </thead>
       <tbody>
-            <tr>
-              <td className="px-4 py-2 text-center">SA</td>
-              <td className="px-4 py-2 text-center">asfcx</td>
-            </tr>
+        {props.data && props.data.map((item)=>{
+            return (
+                <tr>
+                <td className="px-4 py-2 text-center">{item.description}</td>
+                <td className="px-4 py-2 text-center">{item.amount}</td>
+                {/* {sum= sum+item.amount} */}
+              </tr>
+            )
+        })}
+       {/* {sum}     */}
       </tbody>
     </table>
     </div>

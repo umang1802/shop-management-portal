@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "../component/Card/Card";
 import Content from "../component/Content";
-import AddCategory from "../component/AddCategory";
-import AddProduct from "../component/AddProduct";
 import OrderHistory from "../component/Table/OrderHistory";
+import axios from "axios";
 
 export default function SpecialOrders() {
   const [showProductTable, setShowProductTable] = useState(true);
@@ -11,6 +10,7 @@ export default function SpecialOrders() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showInactiveProduct, setShowInactiveProduct] = useState(false);
   const [heading, setHeading] = useState("Special Order");
+  const [orders, setOrders] = useState([]);
 
   const initiateAddNewProduct = () => {
     setShowProductTable(false);
@@ -43,15 +43,18 @@ export default function SpecialOrders() {
     setShowAddProduct(false);
   };
 
-  const headerColumnArray = [
-    "Order No.",
-    "Order Delivery Date",
-    "Customer Name",
-    "Mobile",
-    "Address",
-    "Amount",
-    "View",
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get("https://shop-service-fo3n.onrender.com/api/order/get-orders");
+            setOrders(response.data.rows);
+            console.log(response.data.rows);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    fetchData();
+},[]);
 
   return (
     <>
@@ -70,11 +73,9 @@ export default function SpecialOrders() {
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {orders.map((item)=>{
+             return <Card orderData={item} />
+          })}
         </div>
       )}
       {showAddProduct && <OrderHistory />}

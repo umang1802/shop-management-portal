@@ -1,5 +1,5 @@
+import axios from "axios";
 import React from "react";
-import { MultiSelect } from "react-multi-select-component";
 
 const Table = ({ data, pageSize }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -9,8 +9,11 @@ const Table = ({ data, pageSize }) => {
   const [sortDirection, setSortDirection] = React.useState("asc");
   const [categoryFilters, setCategoryFilters] = React.useState([]);
   const [filteredData, setFilteredData] = React.useState([]);
-
-  const categories = ["Category 1", "Category 2", "Category 3"]; // Replace with your own categories
+  const [productId, setProductId] = React.useState(0);
+  const [outletId, setOutletId] = React.useState(0);
+  const [warehouseStock, setWarehoseStock] = React.useState(0);   
+  const [outletStock, setOutletStock] = React.useState(0);
+  const [warehouseId, setWarehouseId] = React.useState(0);
 
   const totalPages = Math.ceil(filteredData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
@@ -38,15 +41,35 @@ const Table = ({ data, pageSize }) => {
   const handleEdit = (item) => {
     setEditItem(item);
     setEditedData(item);
+    setProductId(item.id)
+    setWarehouseId(1);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if(name==='stockOutlet01'){
+     setOutletId(1);
+     setOutletStock(Number(value));
+    }
+    if(name==='stockOutlet02'){
+     setOutletId(2);
+     setOutletStock(Number(value));
+    }
+    if(name==='stockWorkshop'){
+      setWarehoseStock(Number(value));
+     }
     setEditedData((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setEditedData({});
+    try{
+      const response = await axios.post("https://shop-service-fo3n.onrender.com/update-stock",
+      {warehouseStock, outletStock, productId, outletId, warehouseId})
+      console.log(response);
+    }catch (error) {
+      console.error("Error:", error.message);
+    }
     setEditItem(null);
   };
 
@@ -67,32 +90,6 @@ const Table = ({ data, pageSize }) => {
   const handleCategoryFilterChange = (selectedOptions) => {
     setCategoryFilters(selectedOptions);
   };
-
-  const sortedData = React.useMemo(() => {
-    let sorted = [...filteredData];
-    if (
-      sortBy === "stockWorkshop" ||
-      sortBy === "stockOutlet01" ||
-      sortBy === "stockOutlet02"
-    ) {
-      sorted = sorted.sort((a, b) => {
-        if (sortDirection === "asc") {
-          return a[sortBy] - b[sortBy];
-        } else {
-          return b[sortBy] - a[sortBy];
-        }
-      });
-    } else if (sortBy === "category") {
-      sorted = sorted.sort((a, b) => {
-        if (sortDirection === "asc") {
-          return a[sortBy].localeCompare(b[sortBy]);
-        } else {
-          return b[sortBy].localeCompare(a[sortBy]);
-        }
-      });
-    }
-    return sorted;
-  }, [filteredData, sortBy, sortDirection]);
 
   return (
     <>
@@ -161,7 +158,7 @@ const Table = ({ data, pageSize }) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {sortedData.map((item) => (
+                  {data.map((item) => (
                     <tr key={item.id}>
                       <td className="px-6 py-4 whitespace-nowrap">
                           {item.product_name}
@@ -196,7 +193,7 @@ const Table = ({ data, pageSize }) => {
                         ) : (
                           item.outlet_stock[0] &&
                           item.outlet_stock[0].quantity &&
-                          item.outlet_stock[0].quantity
+                          (item.outlet_stock[0].outlet_id===1 ? item.outlet_stock[0].quantity : item.outlet_stock[1].quantity)
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
@@ -211,7 +208,7 @@ const Table = ({ data, pageSize }) => {
                         ) : (
                           item.outlet_stock[1] &&
                           item.outlet_stock[1].quantity &&
-                          item.outlet_stock[1].quantity
+                          (item.outlet_stock[1].outlet_id===2 ? item.outlet_stock[1].quantity : item.outlet_stock[0].quantity)
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">

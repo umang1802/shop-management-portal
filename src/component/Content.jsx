@@ -34,18 +34,20 @@ function Content(props) {
           </div>: <div className="text-gray-600 text-bold">{props.subHeading}</div>
         )}
         <div className="ml-auto flex items-center">
+        {props.button1Text &&
           <div
             onClick={props.initiateAddNewProduct}
             className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2 mr-2"
           >
             {props.button1Text}
-          </div>
+          </div>}
+          {props.button2Text &&
           <div
             onClick={props.initiateAddNewCategory}
             className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
           >
             {props.button2Text}
-          </div>
+          </div>}
         </div>
       </div>
     </>

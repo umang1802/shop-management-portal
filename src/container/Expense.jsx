@@ -3,6 +3,8 @@ import Content from "../component/Content";
 import ExpenseCard from "../component/Card/ExpenseCard";
 import AddExpenseCard from "../component/Card/AddExpenseCard";
 import ExpenseHistory from "../component/Table/ExpenseHistory";
+import axios from "axios";
+import { useEffect } from "react";
 
 export default function Expense() {
   const [showProductTable, setShowProductTable] = useState(true);
@@ -46,16 +48,61 @@ export default function Expense() {
   const day = currentDate.getDate(); // Get the day of the month
   const monthIndex = currentDate.getMonth(); // Get the month index (0-11)
   const year = currentDate.getFullYear(); // Get the full year
+  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
 
-  // Define an array of month names
   const monthNames = [
-    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
   ];
-
-  // Format the date in "dd-mmm-yyyy" format
   const formattedDate = `${day}-${monthNames[monthIndex]}-${year}`;
 
+  const [data, setData] = useState([]);
+
+  const fetchData = () => {
+    axios
+      .get("https://shop-service-fo3n.onrender.com/api/outlet/get-outlets")
+      .then((resp) => {
+        setData(resp.data.rows);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const dbDate = `${year}-${month}-${day}`;
+
+  const [selectedOutlet, setSelectedOutlet] = useState(1);
+
+  const [outeletData, setOutletData] = useState([]);
+
+  const handleOutletChange = (event) => {
+    const selectedOption = event.target.value;
+    setSelectedOutlet(selectedOption);
+  };
+  useEffect(()=>{
+    axios
+      .post("https://shop-service-fo3n.onrender.com/api/expense/get-outlet-expense",{selectedOutlet,dbDate})
+      .then((resp) => {
+        setOutletData(resp.data.rows);
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
+  },[selectedOutlet])
 
   return (
     <>
@@ -70,17 +117,33 @@ export default function Expense() {
         initiateAddNewCategory={initiateAddNewCategory}
         initiateAddNewProduct={initiateAddNewProduct}
         initiateShowInactiveProduct={initiateShowInactiveProduct}
-        subHeading={formattedDate}
+        subHeading={
+          <>
+            {formattedDate}
+            <select
+              className="border-blue-500 m-2 p-2 border rounded"
+              onChange={handleOutletChange}
+            >
+              {data &&
+                data.map((item) => {
+                  return (
+                    <option key={item.outlet_id} value={item.outlet_id}>
+                      {item.outlet_name}
+                    </option>
+                  );
+                })}
+            </select>
+          </>
+        }
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
-          <ExpenseCard firstHeading="Expense Details" secondHeading="Amount"/>
-          <AddExpenseCard heading="Add New Expense"/>
-          
+          <ExpenseCard firstHeading="Expense Details" secondHeading="Amount" data={outeletData}/>
+          <AddExpenseCard heading="Add New Expense" outlet_id={selectedOutlet}/>
         </div>
       )}
       {showAddProduct && <></>}
-      {showAddCategory && <ExpenseHistory/>}
+      {showAddCategory && <ExpenseHistory />}
     </>
   );
 }
