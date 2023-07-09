@@ -9,7 +9,20 @@ const AddProduct = () => {
     price: "",
   });
 
+  const [count, setCount] = useState(0);
+
+  const [product_id, setProductId] = useState(1);
+
+  const [rawMaterial, setRawMaterial] = useState([
+    {
+      quantity_required: "",
+      raw_material_id: "",
+    },
+  ]);
+
   const [categories, setCategories] = useState([]);
+
+  const [rMaterials, setRMaterials] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,6 +31,10 @@ const AddProduct = () => {
           "https://shop-service-fo3n.onrender.com/api/category/get"
         );
         setCategories(response.data.rows);
+        const rwResponse = await axios.get(
+          "https://shop-service-fo3n.onrender.com/api/rawMaterial"
+        );
+        setRMaterials(rwResponse.data.rows);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -34,13 +51,28 @@ const AddProduct = () => {
     }));
   };
 
+  const handleRawMaterialChange = (e, index) => {
+    const { name, value } = e.target;
+    setRawMaterial((prevRawMaterial) => {
+      const updatedRawMaterial = [...prevRawMaterial];
+      updatedRawMaterial[index] = {
+        ...updatedRawMaterial[index],
+        [name]: value,
+      };
+      setCount(count + 1);
+      return updatedRawMaterial;
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Send the product data to the server or perform any other action
     console.log(product);
-    const response = await axios.post("https://shop-service-fo3n.onrender.com/add-products", {
-      ...product,
-    });
+    const response = await axios.post(
+      "https://shop-service-fo3n.onrender.com/add-products",
+      {
+        ...product,
+      }
+    );
     console.log("New product added:", response.data);
     // Reset the form fields
     setProduct({
@@ -76,7 +108,7 @@ const AddProduct = () => {
                 name="category_id"
                 value={product.category_id}
                 placeholder="Please select category"
-                className="appearance-none py-2 px-2 border border-blue-600 rounded-sm w-full"
+                className="text-blue-600 py-2 px-2 border border-blue-600 rounded-sm w-full"
                 onChange={handleChange}
               >
                 {categories.map((item) => (
@@ -92,7 +124,7 @@ const AddProduct = () => {
                 name="unit"
                 value={product.unit}
                 placeholder="Please select unit"
-                className="appearance-none py-2 px-2 border border-blue-600 rounded-sm w-full"
+                className="text-blue-600 py-2 px-2 border border-blue-600 rounded-sm w-full"
                 onChange={handleChange}
                 defaultValue="Kg"
               >
@@ -116,15 +148,56 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="flex items-center justify-center">
-            <div
-              class=" mt-4 px-4 py-4 bg-blue-100 border border-blue-300 rounded-full w-2/5 cursor-pointer hover:bg-blue-300"
+            <button
+              className="rounded-full border-2 border-green-300 px-6 py-1 shadow-md text-sm font-semibold text-green-600 m-2 mt-6"
               onClick={handleSubmit}
             >
               Submit
-            </div>
+            </button>
           </div>
         </div>
-        <div className="hidden lg:block xl:block w-1/2"></div>
+        <div className="lg:block xl:block w-1/2 p-6">
+          <div className="flex flex-col items-start w-full">
+            <div className="text-blue-600 text-base">Making Quantity</div>
+            <div className="w-full mt-2">
+              <input
+                id="quantity"
+                name="product_name"
+                value={rawMaterial.quantity_required}
+                placeholder="Please Making Quantity"
+                type="number"
+                className="py-2 px-2 border border-blue-600 rounded-sm w-full"
+                onChange={(e) => handleRawMaterialChange(e, count)}
+              ></input>
+            </div>
+          </div>
+          <div className="flex flex-col items-start w-full mt-6">
+            <div className="text-blue-600 text-base">Select Raw Material</div>
+            <div className="w-full mt-2">
+              <select
+                name=""
+                value={rawMaterial.raw_material_id}
+                placeholder="Please select category"
+                className="py-2 px-2 border border-blue-600 text-blue-600 rounded-sm w-full"
+                onChange={handleRawMaterialChange}
+              >
+                {rMaterials.map((item) => (
+                  <option value={item.raw_material_id}>
+                    {item.raw_material_name}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <button
+              className="rounded-full border-2 border-green-300 px-6 py-1 shadow-md text-sm font-semibold text-green-600 m-2 mt-6"
+              onClick={handleSubmit}
+            >
+              Add
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );

@@ -40,13 +40,13 @@ function PreviewBill() {
         />
       </td>
     </tr>
-    {dbData.map((item)=>{
+    {/* {dbData.map((item)=>{
         return <tr>
             <td className="text-center text-2xl capitalize hover:cursor-pointer">
                 {item.product_name}
             </td>
         </tr>
-    })}
+    })} */}
   </tbody>
 </table>
 

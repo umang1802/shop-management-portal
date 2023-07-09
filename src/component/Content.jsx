@@ -44,9 +44,16 @@ function Content(props) {
           {props.button2Text &&
           <div
             onClick={props.initiateAddNewCategory}
-            className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
+            className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2 mr-2"
           >
             {props.button2Text}
+          </div>}
+          {props.button4Text &&
+          <div
+            onClick={props.initiateAddNewButtonThird}
+            className="rounded-full bg-white border-2 border-blue-400 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
+          >
+            {props.button4Text}
           </div>}
         </div>
       </div>
