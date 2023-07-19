@@ -5,12 +5,17 @@ import RecommendedProduct from '../component/Card/RecommendedProduct'
 import Content from '../component/Content';
 import ExpenseHistory from '../component/Table/ExpenseHistory';
 
+
 export default function Bills() {
   const [showProductTable, setShowProductTable] = useState(true);
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showInactiveProduct, setShowInactiveProduct] = useState(false);
   const [heading, setHeading] = useState("Generate New Bill");
+
+  const [selectedProduct, setSelectedProduct] = useState('');
+
+  const [selectedProductId, setSelectedProductId] = useState(0);
 
   const initiateAddNewProduct = () => {
     setShowProductTable(false);
@@ -43,6 +48,7 @@ export default function Bills() {
     setShowAddProduct(false);
     // setHeading('Inactive Products');
   };
+  
   return (
     <div>
       <Content
@@ -72,9 +78,9 @@ export default function Bills() {
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
-          <RecommendedProduct/>
-          <ChooseProduct/>
-          <PreviewBill/>
+          <RecommendedProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
+          <ChooseProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
+          <PreviewBill selectedProdut={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
         </div>
       )}
       {showAddProduct && <></>}

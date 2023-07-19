@@ -17,7 +17,7 @@ export default function SideBar() {
                     </svg>
                 </div>
                 <div className="mt-10">
-                    <NavLink exact to="/" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
+                    <NavLink to="/" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
                                 width="25"
@@ -43,12 +43,12 @@ export default function SideBar() {
                                     fill="#0062FF"
                                 />
                             </svg>
-                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
+                            <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Dashboard
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink exact to="/product" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
+                    <NavLink to="/product" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
                                 width="25"
@@ -98,13 +98,13 @@ export default function SideBar() {
                                     stroke="#D0DBE6"
                                 />
                             </svg>
-                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
+                            <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Stocks/Products
                             </div>
                         </div>
                     </NavLink>
 
-                    <NavLink exact to="/special-order" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
+                    <NavLink to="/special-order" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                     <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                         <svg
                             width="25"
@@ -120,12 +120,12 @@ export default function SideBar() {
                             />
                         </svg>
 
-                        <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
+                        <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Special Order
                         </div>
                     </div>
                     </NavLink>
-                    <NavLink exact to="/expense" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
+                    <NavLink to="/expense" className={({ isActive }) => (isActive ? 'bg-gray-300' : 'inactive')}>
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
                                 width="25"
@@ -209,12 +209,12 @@ export default function SideBar() {
                                 />
                             </svg>
 
-                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
+                            <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 Daily Expense
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink exact to="/bills" activeClassName="active">
+                    <NavLink to="/bills">
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
                                 width="25"
@@ -244,7 +244,7 @@ export default function SideBar() {
                                     stroke="#D0DBE5"
                                 />
                             </svg>
-                            <div class="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
+                            <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
                                 All Bills
                             </div>
                         </div>

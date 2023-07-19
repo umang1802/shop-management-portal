@@ -24,7 +24,6 @@ export default function Dashboard() {
             try {
                 const response = await axios.get("https://shop-service-fo3n.onrender.com/products");
                 setdbData(response.data);
-                console.log(response.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }

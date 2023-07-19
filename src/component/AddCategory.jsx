@@ -26,18 +26,17 @@ const AddCategory = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (categoryName == "") {
+    if (categoryName === "") {
       alert("Enter a valid category");
     } else {
       try {
         // Make an API call to insert a new category
-        const response = await axios.post(
+        await axios.post(
           "https://shop-service-fo3n.onrender.com/api/category/add",
           {
             categoryName,
           }
         );
-        // Reset the form after successful submission
         setCategoryName("");
       } catch (error) {
         // Handle any errors that occur during the API call
@@ -84,7 +83,7 @@ const AddCategory = () => {
 
       <div className="flex justify-center mt-8">
         <div className="w-4/5 bg-white rounded-lg overflow-hidden shadow-xl border py-2">
-          <div class="w-full">
+          <div className="w-full">
             <table className="table-auto w-full">
               <thead>
                 <tr>
