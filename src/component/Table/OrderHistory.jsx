@@ -56,7 +56,7 @@ function OrderHistory() {
                                   <td className="px-4 py-2 text-center">{item.customer_address}</td>
                                   <td className="px-4 py-2 text-center">{item.total_amount}</td>
                                   <button className="px-4 py-2 text-center hover:cursor-pointer font-extralight" onClick={handleOpenModal}>View Order</button>
-                                  <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+                                  <Modal visible={isModalOpen} onOk={handleCloseModal} onCancel={handleCloseModal}>
                                     <h2>Modal Content</h2>
                                     <p>This is the content of the modal.</p>
                                   </Modal>
