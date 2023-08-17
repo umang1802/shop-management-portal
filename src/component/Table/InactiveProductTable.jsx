@@ -5,7 +5,7 @@ function InactiveProductTable(props) {
   const [data, setData] = useState([]);
   const fetchData = () => {
     axios
-      .get("https://shop-service-fo3n.onrender.com/api/product/get-inactive")
+      .get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/get-inactive")
       .then((resp) => {
         console.log("rowsss---->", resp.data.rows);
         setData(resp.data.rows);
@@ -23,7 +23,7 @@ function InactiveProductTable(props) {
       try {
         // Make an API call to insert a new category
         const response = await axios.post(
-          "https://shop-service-fo3n.onrender.com/api/product/activateProduct",
+          "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/activateProduct",
           {
             productId,
           }

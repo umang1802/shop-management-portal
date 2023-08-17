@@ -70,7 +70,7 @@ export default function Expense() {
 
   const fetchData = () => {
     axios
-      .get("https://shop-service-fo3n.onrender.com/api/outlet/get-outlets")
+      .get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/outlet/get-outlets")
       .then((resp) => {
         setData(resp.data.rows);
       })
@@ -95,7 +95,7 @@ export default function Expense() {
   };
   useEffect(()=>{
     axios
-      .post("https://shop-service-fo3n.onrender.com/api/expense/get-outlet-expense",{selectedOutlet,dbDate})
+      .post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/get-outlet-expense",{selectedOutlet,dbDate})
       .then((resp) => {
         setOutletData(resp.data.rows);
       })

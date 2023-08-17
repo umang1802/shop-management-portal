@@ -17,7 +17,7 @@ function OrderHistory() {
   };
   const fetchData = () => {
     axios
-      .get("https://shop-service-fo3n.onrender.com/api/order/get-orders")
+      .get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/get-orders")
       .then((resp) => {
         console.log("rowsss---->", resp.data.rows);
         setData(resp.data.rows);
@@ -62,7 +62,7 @@ function OrderHistory() {
                                   </Modal>
                               </tr>
                           ))}
-                  </tbody>
+                  </tbody>  
               </table>
           </div>
       </div></>

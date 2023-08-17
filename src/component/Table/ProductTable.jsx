@@ -64,7 +64,7 @@ const Table = ({ data, pageSize }) => {
   const handleSave = async () => {
     setEditedData({});
     try{
-      const response = await axios.post("https://shop-service-fo3n.onrender.com/update-stock",
+      const response = await axios.post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/update-stock",
       {warehouseStock, outletStock, productId, outletId, warehouseId})
       console.log(response);
     }catch (error) {

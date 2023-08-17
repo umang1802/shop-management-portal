@@ -16,7 +16,7 @@ function AddRawMaterialCard(props) {
   const handleAddRawMaterial = (e) => {
     e.preventDefault();
     axios
-      .post("https://shop-service-fo3n.onrender.com/api/rawMaterial/add", {
+      .post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/rawMaterial/add", {
         raw_material_name,
         unit,
       })

@@ -28,11 +28,11 @@ const AddProduct = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://shop-service-fo3n.onrender.com/api/category/get"
+          "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/category/get"
         );
         setCategories(response.data.rows);
         const rwResponse = await axios.get(
-          "https://shop-service-fo3n.onrender.com/api/rawMaterial"
+          "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/rawMaterial"
         );
         setRMaterials(rwResponse.data.rows);
       } catch (error) {
@@ -68,7 +68,7 @@ const AddProduct = () => {
     e.preventDefault();
     console.log(product);
     const response = await axios.post(
-      "https://shop-service-fo3n.onrender.com/add-products",
+      "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/add-products",
       {
         ...product,
       }
