@@ -46,7 +46,7 @@ function RecommendedProduct({ setSelectedProduct, setSelectedProductId }) {
             return (
               <tr>
                 <td
-                  className="text-center text-2xl capitalize hover:cursor-pointer"
+                  className="text-center text-md capitalize hover:cursor-pointer"
                   onClick={() => handleProductClick(item.product_name, item.id)}
                 >
                   {item.product_name}

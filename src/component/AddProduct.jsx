@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import RawMaterialTable from "./Table/RawMaterialTable";
 
 const AddProduct = () => {
   const [product, setProduct] = useState({
@@ -59,27 +60,37 @@ const AddProduct = () => {
         ...updatedRawMaterial[index],
         [name]: value,
       };
-      setCount(count + 1);
       return updatedRawMaterial;
     });
   };
+  
+  const handleRawMaterialAdded = () => {
+    setRawMaterial((prevRawMaterial) => [
+      ...prevRawMaterial,
+      {
+        quantity_required: "",
+        raw_material_id: "",
+      },
+    ]);
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(product);
     const response = await axios.post(
       "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/add-products",
       {
         ...product,
       }
     );
-    console.log("New product added:", response.data);
+    alert("New product added");
     // Reset the form fields
     setProduct({
       product_name: "",
       category_id: "",
       unit: "",
       price: "",
+      rawMaterial: rawMaterial, 
     });
   };
 
@@ -141,7 +152,7 @@ const AddProduct = () => {
                 name="price"
                 value={product.price}
                 placeholder="Please enter price"
-                type="text"
+                type="number"
                 className="py-2 px-2 border border-blue-600 rounded-sm w-full"
                 onChange={handleChange}
               ></input>
@@ -161,8 +172,7 @@ const AddProduct = () => {
             <div className="text-blue-600 text-base">Making Quantity</div>
             <div className="w-full mt-2">
               <input
-                id="quantity"
-                name="product_name"
+                name="quantity_required"
                 value={rawMaterial.quantity_required}
                 placeholder="Please Making Quantity"
                 type="number"
@@ -175,11 +185,11 @@ const AddProduct = () => {
             <div className="text-blue-600 text-base">Select Raw Material</div>
             <div className="w-full mt-2">
               <select
-                name=""
+                name="raw_material_id"
                 value={rawMaterial.raw_material_id}
                 placeholder="Please select category"
                 className="py-2 px-2 border border-blue-600 text-blue-600 rounded-sm w-full"
-                onChange={handleRawMaterialChange}
+                onChange={(e) => handleRawMaterialChange(e, count)}
               >
                 {rMaterials.map((item) => (
                   <option value={item.raw_material_id}>
@@ -192,11 +202,13 @@ const AddProduct = () => {
           <div className="flex items-center justify-center">
             <button
               className="rounded-full border-2 border-green-300 px-6 py-1 shadow-md text-sm font-semibold text-green-600 m-2 mt-6"
-              onClick={handleSubmit}
+              onClick={handleRawMaterialAdded}
             >
               Add
             </button>
+            
           </div>
+          <RawMaterialTable rawMaterial={rawMaterial}/>
         </div>
       </div>
     </div>

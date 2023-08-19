@@ -3,6 +3,7 @@ import axios from "axios";
 
 const AddCategory = () => {
   const [categoryName, setCategoryName] = useState("");
+  const [isCategoryAdded, setCategoryAdded] = useState(false);
   const [data, setData] = useState([]);
   const fetchData = () => {
     axios
@@ -18,7 +19,7 @@ const AddCategory = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [isCategoryAdded]);
 
   const handleCategoryNameChange = (event) => {
     setCategoryName(event.target.value);
@@ -38,6 +39,7 @@ const AddCategory = () => {
           }
         );
         setCategoryName("");
+        setCategoryAdded(true);
       } catch (error) {
         // Handle any errors that occur during the API call
         console.error("Error:", error.message);

@@ -78,6 +78,18 @@ const Table = ({ data, pageSize }) => {
     setEditItem(null);
   };
 
+  const handleMakeInactive = async () => {
+    try{
+      const response = await axios.post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/makeInactive",
+      {productId})
+      if(response){
+        alert('Product Set to Inactive');
+      }
+    }catch (error) {
+      console.error("Error:", error.message);
+    }
+  }
+
   const handleSort = (column) => {
     if (sortBy === column) {
       setSortDirection(sortDirection === "asc" ? "desc" : "asc");
@@ -166,14 +178,14 @@ const Table = ({ data, pageSize }) => {
                       <td className="px-6 py-4 whitespace-nowrap">
                           {item.category.category_name}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
                         {editItem === item ? (
                           <input
                             type="number"
                             name="stockWorkshop"
                             value={editedData.stockWorkshop || ""}
                             onChange={handleInputChange}
-                            className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
+                            className="px-2 py-1 border border-gray-300 rounded-sm w-32"
                           />
                         ) : (
                           item.warehouse_stock[0] &&
@@ -181,14 +193,14 @@ const Table = ({ data, pageSize }) => {
                           item.warehouse_stock[0].quantity
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
                         {editItem === item ? (
                           <input
                             type="number"
                             name="stockOutlet01"
                             value={editedData.stockOutlet01 || ""}
                             onChange={handleInputChange}
-                            className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
+                            className="py-1 border border-gray-300 rounded-sm w-32"
                           />
                         ) : (
                           item.outlet_stock[0] &&
@@ -196,14 +208,14 @@ const Table = ({ data, pageSize }) => {
                           (item.outlet_stock[0].outlet_id===1 ? item.outlet_stock[0].quantity : item.outlet_stock[1].quantity)
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
                         {editItem === item ? (
                           <input
                             type="number"
                             name="stockOutlet02"
                             value={editedData.stockOutlet02 || ""}
                             onChange={handleInputChange}
-                            className="px-2 py-1 border border-gray-300 rounded-sm w-full sm:w-auto"
+                            className="py-1 border border-gray-300 rounded-sm w-32"
                           />
                         ) : (
                           item.outlet_stock[1] &&
@@ -211,7 +223,7 @@ const Table = ({ data, pageSize }) => {
                           (item.outlet_stock[1].outlet_id===2 ? item.outlet_stock[1].quantity : item.outlet_stock[0].quantity)
                         )}
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <td className="px-6 py-4 whitespace-nowrap text-center">
                         {editItem === item ? (
                           <div className="flex space-x-2">
                             <button
@@ -226,6 +238,12 @@ const Table = ({ data, pageSize }) => {
                             >
                               Reset
                             </button>
+                            <button
+                            onClick={handleMakeInactive}
+                            className="px-2 py-1 bg-red-500 text-white rounded-sm"
+                          >
+                            Make Inactive
+                          </button>
                           </div>
                         ) : (
                           <button

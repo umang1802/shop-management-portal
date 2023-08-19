@@ -16,7 +16,6 @@ function AddExpenseCard(props) {
 
   const handleAddExpense = (e) => {
     e.preventDefault();
-    console.log(description, amount);
     axios
       .post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/add-expense", {
         description,
@@ -25,6 +24,7 @@ function AddExpenseCard(props) {
       })
       .then((resp) => {
         console.log("Success");
+        props.dataUpdated();
         setAmount('');
         setDescription('');
       })

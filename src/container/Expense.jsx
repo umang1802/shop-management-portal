@@ -12,6 +12,7 @@ export default function Expense() {
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showInactiveProduct, setShowInactiveProduct] = useState(false);
   const [heading, setHeading] = useState("Daily Expense");
+  const [isCategoryAdded, setCategoryAdded] = useState(false);
 
   const initiateAddNewProduct = () => {
     setShowProductTable(false);
@@ -81,7 +82,7 @@ export default function Expense() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [isCategoryAdded]);
 
   const dbDate = `${year}-${month}-${day}`;
 
@@ -139,7 +140,7 @@ export default function Expense() {
       {showProductTable && (
         <div className="flex flex-wrap justify-">
           <ExpenseCard firstHeading="Expense Details" secondHeading="Amount" data={outeletData}/>
-          <AddExpenseCard heading="Add New Expense" outlet_id={selectedOutlet}/>
+          <AddExpenseCard heading="Add New Expense" outlet_id={selectedOutlet} dataUpdated={()=>setCategoryAdded(true)}/>
         </div>
       )}
       {showAddProduct && <></>}
