@@ -1,9 +1,10 @@
-import React, { useState }from 'react'
+import React, { useState, useEffect }from 'react'
 import ChooseProduct from '../component/Card/ChooseProduct';
 import PreviewBill from '../component/Card/PreviewBill';
 import RecommendedProduct from '../component/Card/RecommendedProduct'
 import Content from '../component/Content';
 import ExpenseHistory from '../component/Table/ExpenseHistory';
+import axios from 'axios';
 
 
 export default function Bills() {
@@ -11,11 +12,36 @@ export default function Bills() {
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showInactiveProduct, setShowInactiveProduct] = useState(false);
+  const [dbData, setdbData] = useState([])
   const [heading, setHeading] = useState("Generate New Bill");
+  const [selectedProducts, setSelectedProducts] = useState({})
+  const [productsForBill, setProductForBill] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products"
+        );
+        setdbData(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  
 
   const [selectedProduct, setSelectedProduct] = useState('');
 
   const [selectedProductId, setSelectedProductId] = useState(0);
+
+  const handleProductSelection = (selectedProduct) => {
+    setSelectedProducts(selectedProduct)
+    //setSelectedProducts((prevProduct) => [...prevProduct, selectedProduct])
+  }
 
   const initiateAddNewProduct = () => {
     setShowProductTable(false);
@@ -48,6 +74,11 @@ export default function Bills() {
     setShowAddProduct(false);
     // setHeading('Inactive Products');
   };
+
+  const AddProductToBill = (selectedProduct) => {
+    const productForBilling = [...productsForBill, selectedProduct]
+    setProductForBill(productForBilling)
+  }
   
   return (
     <div>
@@ -78,9 +109,12 @@ export default function Bills() {
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
-          <RecommendedProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
-          <ChooseProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
-          <PreviewBill selectedProdut={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/>
+          {/* <RecommendedProduct productData={dbData} selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={(value) => {console.log("productValue", value);setSelectedProduct(value)}} setSelectedProductId={(id) => {setSelectedProductId(id); console.log('id', id)}}/> */}
+          <RecommendedProduct productData={dbData} onProductSelect={handleProductSelection}/>
+          {/* <ChooseProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
+          <ChooseProduct  productData={dbData} selectedProduct={selectedProducts} onProductSelection={AddProductToBill} />
+          {/* <PreviewBill selectedProdut={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
+          <PreviewBill productsForBill={productsForBill} />
         </div>
       )}
       {showAddProduct && <></>}

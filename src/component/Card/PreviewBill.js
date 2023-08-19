@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 
-function PreviewBill() {
-    const [dbData, setdbData] = useState([]);
+function PreviewBill({productsForBill}) {
+    // const [dbData, setdbData] = useState([]);
+    // const [billingproducts, setBillingProducts] = useState([]);
+
 
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products");
-                setdbData(response.data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        };
+      console.log("Preview Bill", productsForBill)
+    }, [productsForBill])
 
-        fetchData();
-    },[]);
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products");
+    //             setdbData(response.data);
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
+
+    //     fetchData();
+    // },[]);
   return (
     <div className="w-full lg:w-1/4 bg-white rounded-xl shadow-lg m-3">
       <table className="w-full">
@@ -39,13 +45,14 @@ function PreviewBill() {
         />
       </td>
     </tr>
-    {/* {dbData.map((item)=>{
+    {productsForBill && productsForBill.map((item)=>{
         return <tr>
-            <td className="text-center text-2xl capitalize hover:cursor-pointer">
-                {item.product_name}
+            <td className="flex items-center px-2 py-2 border border-gray-200 shadow-sm">
+                <div className='w-1/2 text-sm font-semibold text-gray-800'>{item.selectedProduct.product_name}</div>
+                <div className='w-1/2 text-sm font-semibold text-gray-800'>{item.quantity} { ' '} { 'kg' }</div>
             </td>
         </tr>
-    })} */}
+    })}
   </tbody>
 </table>
 
