@@ -4,7 +4,10 @@ import axios from "axios";
 function ChooseProduct({productData, selectedProduct, selectedProductId, setSelectedProductId, onProductSelection}) {
   const [categories, setCategories] = useState([]);
   const [filteredList, setFilteredProductList] = useState([]);
-  const [selectedProd, setSelectedProduct] = useState({})
+  const [selectedProd, setSelectedProduct] = useState({});
+  const [productUnit, setUnit] = useState("");
+
+  const unitMap = ["kg", "gram","unit"]
 
   useEffect(() => {
     setSelectedProduct(selectedProduct)
@@ -34,7 +37,8 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
    if(quantity && quantity >0) {
     onProductSelection({
       selectedProduct: selectedProd,
-      quantity: quantity
+      quantity: quantity,
+      productUnit: productUnit
     })
    }
   };
@@ -123,6 +127,15 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
           onChange={(e) => setQuantity(e.target.value)}
           />
           <button>{selectedProd?.unit}</button>
+          {/* <select
+               onChange={(e) => {setUnit(e.target.value)}}
+                name="category_id"
+                className="py-2 px-2 border border-blue-400 m-2 w-4/6 text-blue-400 rounded-sm text-center">
+                {unitMap.map((item) => (
+                  <option value={item}>{item}</option>
+                ))}
+               
+              </select> */}
           <button
           className="rounded-full border-2 w-1/4 border-green-600 px-6 py-1 shadow-md text-sm font-semibold bg-green-600 text-white m-2"
           type="submit"
