@@ -1,37 +1,18 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 
 function RecommendedProduct({ productData, setSelectedProduct, setSelectedProductId, onProductSelect }) {
-  const [dbData, setdbData] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await axios.get(
-  //         "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products"
-  //       );
-  //       setdbData(response.data);
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, []);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const handleProductClick = (product) => {
-    // setSelectedProduct(name);
-    // setSelectedProductId(id);
-    onProductSelect(product)
+    onProductSelect(product);
   };
 
-  // const handleSearch = (value) => {
-  //   const filteredData = dbData.filter(data => data.product_name.includes(value))
-  //   setdbData(filteredData)
-  // }
+  const filteredProducts = productData.filter((item) =>
+    item.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
-    <div className="w-full lg:w-1/4 bg-white rounded-xl shadow-lg m-3 ">
+    <div className="w-full lg:w-1/4 bg-white rounded-xl shadow-lg m-3 max-h-[700px] overflow-y-auto">
       <table className="w-full">
         <thead className="bg-blue-50 rounded-xl">
           <tr>
@@ -45,25 +26,20 @@ function RecommendedProduct({ productData, setSelectedProduct, setSelectedProduc
                 type="text"
                 className="border rounded-full px-2 py-2 m-2 w-5/6"
                 placeholder="Search"
-                // onChange={handleSearch}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
             </td>
           </tr>
-          {productData.map((item) => {
-            return (
-              <div className="flex px-4 py-6 shadow-sm hover:bg-gray-200" onClick={() => handleProductClick(item)}>
-                <div className="text-xl text-gray-700 font-semibold">{item.product_name}</div>
-              </div>
-              // <tr>
-              //   <td
-              //     className="text-center text-md capitalize hover:cursor-pointer"
-              //     onClick={() => handleProductClick(item.product_name, item.id)}
-              //   >
-              //     {item.product_name}
-              //   </td>
-              // </tr>
-            );
-          })}
+          {filteredProducts.map((item) => (
+            <div
+              key={item.id} // Make sure to provide a unique key
+              className="flex px-4 py-6 shadow-sm hover:bg-gray-200"
+              onClick={() => handleProductClick(item)}
+            >
+              <div className="text-xl text-gray-700 font-semibold">{item.product_name}</div>
+            </div>
+          ))}
         </tbody>
       </table>
     </div>

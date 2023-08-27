@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
-import { addProduct, removeProduct } from "../../redux/productSlice";
 
-function ChooseProduct({productData, selectedProduct, selectedProductId, onProductSelection}) {
+function ChooseProduct({productData, selectedProduct, selectedProductId, setSelectedProductId, onProductSelection}) {
   const [categories, setCategories] = useState([]);
   const [filteredList, setFilteredProductList] = useState([]);
   const [selectedProd, setSelectedProduct] = useState({})
@@ -30,7 +28,6 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, onProdu
   }, []);
 
   const [quantity, setQuantity] = useState(0);
-  const dispatch = useDispatch();
 
   const handleAddProduct = () => {
    //  dispatch(addProduct({ selectedProductId, q }));
@@ -42,6 +39,11 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, onProdu
    }
   };
 
+  const handleProductClick = (item, id) => {
+    setSelectedProduct(item);
+    setSelectedProductId(id);
+  };
+
   const filterProductByCategories = (id) => {
     const filteredProductList = productData.filter(product => product.category.category_id == id);
     setFilteredProductList(filteredProductList)
@@ -49,7 +51,7 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, onProdu
   
 
   return (
-    <div className="w-full lg:w-5/12 bg-white rounded-xl shadow-lg m-3">
+    <div className="w-full lg:w-5/12 bg-white rounded-xl shadow-lg m-3 max-h-[700px] overflow-y-auto">
       <table className="w-full">
         <thead className="bg-blue-50 rounded-xl">
           <tr>
@@ -75,20 +77,20 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, onProdu
               </div>
             </div>
           </tr>
-          <td className="flex flex-col mt-4 text-center">
+          {/* <td className="flex flex-col mt-4 text-center">
             {product.length === 0 ? (
               <label>No Products for this category</label>
             ) : (
               product.map((item) => (
                 <label
                   key={item.id}
-                  onClick={() => handleProductClick(item.product_name, item.id)}
+                  onClick={() => handleProductClick(item, item.id)}
                 >
                   {item.product_name}
                 </label>
               ))
             )}
-          </td>
+          </td> */}
         </tbody>
       </table>
       {
@@ -119,7 +121,9 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, onProdu
           placeholder='Enter Quantity'
           value={quantity}
           onChange={(e) => setQuantity(e.target.value)}
-          /><button
+          />
+          <button>{selectedProd?.unit}</button>
+          <button
           className="rounded-full border-2 w-1/4 border-green-600 px-6 py-1 shadow-md text-sm font-semibold bg-green-600 text-white m-2"
           type="submit"
           onClick={handleAddProduct}

@@ -84,28 +84,28 @@ export default function Bills() {
     <div>
       <Content
         heading={heading}
-        showInactiveProduct={showInactiveProduct}
-        showAddCategory={showAddCategory}
-        showAddProduct={showAddProduct}
-        backToShowProduct={backToShowProduct}
-        initiateAddNewCategory={initiateAddNewCategory}
-        initiateAddNewProduct={initiateAddNewProduct}
-        initiateShowInactiveProduct={initiateShowInactiveProduct}
-        subHeading={<div className="ml-auto flex items-center">
-         <div
-            className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
-          >Bill Formats
-          </div>
-          <div
-            className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
-          >Bill History
-          </div>
-          <div
-            className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
-          >View Today's Bill
-          </div>
-          </div>
-        }
+        // showInactiveProduct={showInactiveProduct}
+        // showAddCategory={showAddCategory}
+        // showAddProduct={showAddProduct}
+        // backToShowProduct={backToShowProduct}
+        // initiateAddNewCategory={initiateAddNewCategory}
+        // initiateAddNewProduct={initiateAddNewProduct}
+        // initiateShowInactiveProduct={initiateShowInactiveProduct}
+        // subHeading={<div className="ml-auto flex items-center">
+        //  <div
+        //     className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
+        //   >Bill Formats
+        //   </div>
+        //   <div
+        //     className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
+        //   >Bill History
+        //   </div>
+        //   <div
+        //     className="rounded-full bg-white border-2 border-blue-400 m-2 px-3 py-3 shadow-md text-sm font-bold text-blue-600 cursor-pointer hover:bg-blue-200 mb-2"
+        //   >View Today's Bill
+        //   </div>
+        //   </div>
+        // }
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
