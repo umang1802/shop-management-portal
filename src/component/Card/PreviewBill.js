@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+
+
 function PreviewBill({ productsForBill }) {
   const [totalPrice, setTotalPrice] = useState(0);
   const [customer_name, setCustomerName] = useState("");
@@ -18,8 +20,21 @@ function PreviewBill({ productsForBill }) {
   }, [productsForBill]);
 
   const handlePrint = () => {
-    // Add your logic to print the bill
-    console.log("Printing the bill...", customer_name, mobile_number);
+    const printWindow = window.open('', '_blank');
+    printWindow.document.write('<html><head><title>Print</title></head><body>');
+    printWindow.document.write('<style>@media print { .print-container { width: 3in; } }</style>');
+    printWindow.document.write('<div class="print-container">');
+
+    // Get the rendered HTML content of the displayed bill
+    const billContent = document.getElementById('bill-content').innerHTML;
+    printWindow.document.write(billContent);
+    // ... Sub Total, Tax, Grand Total rows
+    printWindow.document.write('</div>');
+
+    printWindow.document.write('</div>');
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+    printWindow.print();
   };
 
   return (
@@ -96,6 +111,50 @@ function PreviewBill({ productsForBill }) {
           </tr>
         </tbody>
       </table>
+      <div id="bill-content" className="hidden">
+
+      <div>
+        <img src={require("../../assets/images/bill-header.jpeg")} height="100" width="200" />
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th style={{ fontSize: "10px", fontFamily: "sans-serif"}}>Item</th>
+            <th style={{ fontSize: "10px", fontFamily: "sans-serif"}}>Quantity</th>
+            <th style={{ fontSize: "10px", fontFamily: "sans-serif"}}>Rate (Rs)</th>
+            <th style={{ fontSize: "10px", fontFamily: "sans-serif"}}>Total (Rs)</th>
+          </tr>
+        </thead>
+        <tbody style={{ fontSize: "8px", fontFamily: "sans-serif"}}>
+          {productsForBill.map((item, index) => (
+            <tr key={index}>
+              <td>{item.selectedProduct.product_name}</td>
+              <td>{item.quantity}</td>
+              <td>{item.selectedProduct.price}</td>
+              <td>{parseInt(item.quantity) * parseInt(item.selectedProduct.price)}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div className="totals">
+        {/* <div className="total-row">
+          <span>Sub Total:</span>
+          <span>{calculateSubTotal()}</span>
+        </div>
+        <div className="total-row">
+          <span>Tax (10%):</span>
+          <span>{calculateTax()}</span>
+        </div> */}
+        <div className="total-row">
+          <span style={{ fontSize: "10px", fontFamily: "sans-serif"}}>Grand Total:</span>
+          <span style={{ fontSize: "10px", fontFamily: "sans-serif"}}>{totalPrice}</span>
+        </div>
+        <div className="mt-4">
+        <img src={require("../../assets/images/bill-footer.jpeg")} height="100" width="200" />
+      </div>
+      </div>
+      </div>
     </div>
   );
 }
