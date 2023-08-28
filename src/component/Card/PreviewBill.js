@@ -116,6 +116,7 @@ function PreviewBill({ productsForBill }) {
       <div>
         <img src={require("../../assets/images/bill-header.jpeg")} height="100" width="200" />
       </div>
+      <label style={{ fontSize: "10px", fontFamily: "sans-serif"}}>{customer_name} { mobile_number} </label>
       <table>
         <thead>
           <tr>
@@ -131,7 +132,7 @@ function PreviewBill({ productsForBill }) {
               <td>{item.selectedProduct.product_name}</td>
               <td>{item.quantity}</td>
               <td>{item.selectedProduct.price}</td>
-              <td>{parseInt(item.quantity) * parseInt(item.selectedProduct.price)}</td>
+              <td>{Number(item.quantity) * Number(item.selectedProduct.price)}</td>
             </tr>
           ))}
         </tbody>
