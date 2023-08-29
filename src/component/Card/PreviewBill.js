@@ -22,7 +22,7 @@ function PreviewBill({ productsForBill }) {
   const handlePrint = () => {
     const printWindow = window.open('', '_blank');
     printWindow.document.write('<html><head><title>Print</title></head><body>');
-    printWindow.document.write('<style>@media print { .print-container { width: 3in; } }</style>');
+    printWindow.document.write('<style>@media print { .print-container { width: 3in; height: auto; margin: auto;} }</style>');
     printWindow.document.write('<div class="print-container">');
 
     // Get the rendered HTML content of the displayed bill
@@ -34,7 +34,12 @@ function PreviewBill({ productsForBill }) {
     printWindow.document.write('</div>');
     printWindow.document.write('</body></html>');
     printWindow.document.close();
-    printWindow.print();
+    // Wait for images and stylesheets to load before calculating content height
+    printWindow.onload = () => {
+      const contentHeight = printWindow.document.body.scrollHeight;
+      printWindow.document.querySelector('.print-container').style.height = `${contentHeight + 20}px`;
+      printWindow.print();
+  };
   };
 
   return (
