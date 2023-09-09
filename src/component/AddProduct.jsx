@@ -6,13 +6,12 @@ const AddProduct = () => {
   const [product, setProduct] = useState({
     product_name: "",
     category_id: "1",
+    min_stock: "s",
     unit: "Kg",
     price: "",
   });
 
   const [count, setCount] = useState(0);
-
-  const [product_id, setProductId] = useState(1);
 
   const [rawMaterial, setRawMaterial] = useState([
     {
@@ -42,7 +41,29 @@ const AddProduct = () => {
     };
 
     fetchData();
-  }, []);
+  }, [product]);
+
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = async () => {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      await axios.post('http://localhost:3001/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      alert('File uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading file:', error);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -88,6 +109,7 @@ const AddProduct = () => {
     setProduct({
       product_name: "",
       category_id: "",
+      min_stock: "",
       unit: "",
       price: "",
       rawMaterial: rawMaterial, 
@@ -146,6 +168,19 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="flex flex-col items-start w-full mt-6">
+            <div className="text-blue-600 text-base">Minimum Stock Alert</div>
+            <div className="w-full mt-2">
+              <input
+                name="min_stock"
+                value={product.min_stock}
+                type="number"
+                className="text-blue-600 py-2 px-2 border border-blue-600 rounded-sm w-full"
+                onChange={handleChange}
+              >
+              </input>
+            </div>
+          </div>
+          <div className="flex flex-col items-start w-full mt-6">
             <div className="text-blue-600 text-base">Price</div>
             <div className="w-full mt-2">
               <input
@@ -156,6 +191,12 @@ const AddProduct = () => {
                 className="py-2 px-2 border border-blue-600 rounded-sm w-full"
                 onChange={handleChange}
               ></input>
+            </div>
+          </div>
+          <div className="flex flex-col items-start w-full mt-6">
+            <div className="text-blue-600 text-base">Price</div>
+            <div className="w-full mt-2">
+            <input type="file" accept="image/*" onChange={handleFileChange} />
             </div>
           </div>
           <div className="flex items-center justify-center">

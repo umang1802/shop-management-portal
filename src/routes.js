@@ -8,16 +8,8 @@ import Expense from "./container/Expense";
 import LoginScreen from "./LoginScreen";
 import { AuthContext } from "./authentication/AuthContext";
 import Bills from './container/Bills'
+import ProductDetailPage from "./component/ProductDetailPage";
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  const { isAuthenticated } = React.useContext(AuthContext);
-
-  return isAuthenticated ? (
-    <Component {...rest} />
-  ) : (
-    <Navigate to="/login" replace={true} />
-  );
-};
 
 const ShopRoutes = () => {
   return (
@@ -31,7 +23,6 @@ const ShopRoutes = () => {
               isAuthenticated ? (
                 <Layout>
                   {" "}
-                  <Dashboard />
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -44,7 +35,7 @@ const ShopRoutes = () => {
               isAuthenticated ? (
                 <Layout>
                   {" "}
-                  <Products />
+                  <Dashboard />
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -84,6 +75,32 @@ const ShopRoutes = () => {
                 <Layout>
                   {" "}
                   <Bills />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/pdp/:productId"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <ProductDetailPage />
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/priceUpdate"
+            element={
+              isAuthenticated ? (
+                <Layout>
+                  {" "}
+                  <Products />
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

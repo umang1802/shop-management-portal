@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Table = ({ data, pageSize }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
@@ -11,7 +12,7 @@ const Table = ({ data, pageSize }) => {
   const [filteredData, setFilteredData] = React.useState([]);
   const [productId, setProductId] = React.useState(0);
   const [outletId, setOutletId] = React.useState(0);
-  const [warehouseStock, setWarehoseStock] = React.useState(0);   
+  const [warehouseStock, setWarehoseStock] = React.useState(0);
   const [outletStock, setOutletStock] = React.useState(0);
   const [warehouseId, setWarehouseId] = React.useState(0);
 
@@ -41,33 +42,35 @@ const Table = ({ data, pageSize }) => {
   const handleEdit = (item) => {
     setEditItem(item);
     setEditedData(item);
-    setProductId(item.id)
+    setProductId(item.id);
     setWarehouseId(1);
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    if(name==='stockOutlet01'){
-     setOutletId(1);
-     setOutletStock(Number(value));
+    if (name === "stockOutlet01") {
+      setOutletId(1);
+      setOutletStock(Number(value));
     }
-    if(name==='stockOutlet02'){
-     setOutletId(2);
-     setOutletStock(Number(value));
+    if (name === "stockOutlet02") {
+      setOutletId(2);
+      setOutletStock(Number(value));
     }
-    if(name==='stockWorkshop'){
+    if (name === "stockWorkshop") {
       setWarehoseStock(Number(value));
-     }
+    }
     setEditedData((prevState) => ({ ...prevState, [name]: value }));
   };
 
   const handleSave = async () => {
     setEditedData({});
-    try{
-      const response = await axios.post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/update-stock",
-      {warehouseStock, outletStock, productId, outletId, warehouseId})
+    try {
+      const response = await axios.post(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/update-stock",
+        { warehouseStock, outletStock, productId, outletId, warehouseId }
+      );
       console.log(response);
-    }catch (error) {
+    } catch (error) {
       console.error("Error:", error.message);
     }
     setEditItem(null);
@@ -79,16 +82,18 @@ const Table = ({ data, pageSize }) => {
   };
 
   const handleMakeInactive = async () => {
-    try{
-      const response = await axios.post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/makeInactive",
-      {productId})
-      if(response){
-        alert('Product Set to Inactive');
+    try {
+      const response = await axios.post(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/makeInactive",
+        { productId }
+      );
+      if (response) {
+        alert("Product Set to Inactive");
       }
-    }catch (error) {
+    } catch (error) {
       console.error("Error:", error.message);
     }
-  }
+  };
 
   const handleSort = (column) => {
     if (sortBy === column) {
@@ -172,11 +177,13 @@ const Table = ({ data, pageSize }) => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {data.map((item) => (
                     <tr key={item.id}>
-                      <td className="px-6 py-4 whitespace-nowrap">
+                      <Link to={`/pdp/${item.id}`} state={{ product: item }}>
+                        <td className="px-6 py-4 whitespace-nowrap">
                           {item.product_name}
-                      </td>
+                        </td>
+                      </Link>
                       <td className="px-6 py-4 whitespace-nowrap">
-                          {item.category.category_name}
+                        {item.category.category_name}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
                         {editItem === item ? (
@@ -205,7 +212,9 @@ const Table = ({ data, pageSize }) => {
                         ) : (
                           item.outlet_stock[0] &&
                           item.outlet_stock[0].quantity &&
-                          (item.outlet_stock[0].outlet_id===1 ? item.outlet_stock[0].quantity : item.outlet_stock[1].quantity)
+                          (item.outlet_stock[0].outlet_id === 1
+                            ? item.outlet_stock[0].quantity
+                            : item.outlet_stock[1].quantity)
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -220,7 +229,9 @@ const Table = ({ data, pageSize }) => {
                         ) : (
                           item.outlet_stock[1] &&
                           item.outlet_stock[1].quantity &&
-                          (item.outlet_stock[1].outlet_id===2 ? item.outlet_stock[1].quantity : item.outlet_stock[0].quantity)
+                          (item.outlet_stock[1].outlet_id === 2
+                            ? item.outlet_stock[1].quantity
+                            : item.outlet_stock[0].quantity)
                         )}
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
@@ -239,11 +250,11 @@ const Table = ({ data, pageSize }) => {
                               Reset
                             </button>
                             <button
-                            onClick={handleMakeInactive}
-                            className="px-2 py-1 bg-red-500 text-white rounded-sm"
-                          >
-                            Make Inactive
-                          </button>
+                              onClick={handleMakeInactive}
+                              className="px-2 py-1 bg-red-500 text-white rounded-sm"
+                            >
+                              Make Inactive
+                            </button>
                           </div>
                         ) : (
                           <button

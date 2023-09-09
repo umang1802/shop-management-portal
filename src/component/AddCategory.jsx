@@ -102,6 +102,12 @@ const AddCategory = () => {
                       <td className="px-4 py-2 text-center">
                         {item.product_count}
                       </td>
+                      <td
+                className="px-4 text-center cursor-pointer"
+                onClick={() => (item.id)}
+              ><button className="px-4 py-2 text-center hover:cursor-pointer font-extralight">
+                View Products</button>
+              </td>
                     </tr>
                   ))}
               </tbody>

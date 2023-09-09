@@ -30,7 +30,7 @@ export default function Bills() {
     };
 
     fetchData();
-  }, []);
+  }, [productsForBill]);
 
   
 
@@ -79,6 +79,11 @@ export default function Bills() {
     const productForBilling = [...productsForBill, selectedProduct]
     setProductForBill(productForBilling)
   }
+
+  const removeProduct = (indexToRemove) => {
+    const updatedProducts = productsForBill.filter((_, index) => index !== indexToRemove);
+    setProductForBill(updatedProducts);
+  };
   
   return (
     <div>
@@ -114,7 +119,7 @@ export default function Bills() {
           {/* <ChooseProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
           <ChooseProduct  productData={dbData} selectedProduct={selectedProducts} onProductSelection={AddProductToBill} />
           {/* <PreviewBill selectedProdut={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
-          <PreviewBill productsForBill={productsForBill} />
+          <PreviewBill productsForBill={productsForBill} removeProduct={removeProduct}/>
         </div>
       )}
       {showAddProduct && <></>}
