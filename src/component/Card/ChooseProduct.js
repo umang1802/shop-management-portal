@@ -40,6 +40,7 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
       quantity: quantity,
       productUnit: productUnit
     })
+    setQuantity(0)
    }
   };
 

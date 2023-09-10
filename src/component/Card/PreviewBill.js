@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function PreviewBill({ productsForBill, removeProduct }) {
+function PreviewBill({ productsForBill, removeProduct, resetBill }) {
   const [total_amount, setTotalPrice] = useState(0);
   const [customer_name, setCustomerName] = useState("");
   const [mobile_number, setMobileNumber] = useState("");
@@ -16,29 +16,31 @@ function PreviewBill({ productsForBill, removeProduct }) {
   }, [productsForBill]);
 
   const insertOrderInDatabase = async () => {
-    try {
-      // Make the POST request to add an order
-      const resp = await axios.post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
-        {
-          customer_name,
-          mobile_number,
-          total_amount,
-          type: "normal",
-        }
-      );
+    // try {
+    //   // Make the POST request to add an order
+    //   const resp = await axios.post(
+    //     "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
+    //     {
+    //       customer_name,
+    //       mobile_number,
+    //       total_amount,
+    //       type: "normal",
+    //     }
+    //   );
   
-      // Check if the request was successful
-      if (resp.status === 200) {
-        // Now that the order is inserted, proceed with printing
-        handlePrint();
-      } else {
-        // Handle error if the request was not successful
-        console.error("Error: Unable to add order.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
+    //   // Check if the request was successful
+    //   if (resp.status === 200) {
+    //     // Now that the order is inserted, proceed with printing
+    //     handlePrint();
+    //   } else {
+    //     // Handle error if the request was not successful
+    //     console.error("Error: Unable to add order.");
+    //   }
+    // } catch (error) {
+    //   console.error("Error:", error);
+    // }
+    handlePrint();
+    resetBill();
   };
   
   const handlePrint = () => {

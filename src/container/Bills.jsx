@@ -30,7 +30,7 @@ export default function Bills() {
     };
 
     fetchData();
-  }, [productsForBill]);
+  }, []);
 
   
 
@@ -80,8 +80,17 @@ export default function Bills() {
     setProductForBill(productForBilling)
   }
 
-  const removeProduct = (indexToRemove) => {
-    const updatedProducts = productsForBill.filter((_, index) => index !== indexToRemove);
+  const resetBill = () => {
+    setProductForBill([]);
+    setSelectedProducts({});
+  }
+
+  const removeProduct = (id) => {
+    const updatedProducts = [...productsForBill]
+    const productToRemove = updatedProducts.filter(product => product.selectedProduct.id === id);
+    const index = updatedProducts.indexOf(productToRemove)
+    updatedProducts.splice(index, 1)
+    // const updatedProducts = productsForBill.filter((_, index) => index !== indexToRemove);
     setProductForBill(updatedProducts);
   };
   
@@ -119,7 +128,7 @@ export default function Bills() {
           {/* <ChooseProduct selectedProduct={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
           <ChooseProduct  productData={dbData} selectedProduct={selectedProducts} onProductSelection={AddProductToBill} />
           {/* <PreviewBill selectedProdut={selectedProduct} selectedProductId={selectedProductId} setSelectedProduct={setSelectedProduct} setSelectedProductId={setSelectedProductId}/> */}
-          <PreviewBill productsForBill={productsForBill} removeProduct={removeProduct}/>
+          <PreviewBill productsForBill={productsForBill} removeProduct={removeProduct} resetBill={resetBill}/>
         </div>
       )}
       {showAddProduct && <></>}
