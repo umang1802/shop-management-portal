@@ -16,64 +16,69 @@ function PreviewBill({ productsForBill, removeProduct, resetBill }) {
   }, [productsForBill]);
 
   const insertOrderInDatabase = async () => {
-    // try {
-    //   // Make the POST request to add an order
-    //   const resp = await axios.post(
-    //     "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
-    //     {
-    //       customer_name,
-    //       mobile_number,
-    //       total_amount,
-    //       type: "normal",
-    //     }
-    //   );
-  
-    //   // Check if the request was successful
-    //   if (resp.status === 200) {
-    //     // Now that the order is inserted, proceed with printing
-    //     handlePrint();
-    //   } else {
-    //     // Handle error if the request was not successful
-    //     console.error("Error: Unable to add order.");
-    //   }
-    // } catch (error) {
-    //   console.error("Error:", error);
-    // }
-    handlePrint();
-    resetBill();
+    try {
+      // Make the POST request to add an order
+      const resp = await axios.post(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
+        {
+          customer_name,
+          mobile_number,
+          total_amount,
+          type: "normal",
+        }
+      );
+
+      // Check if the request was successful
+      if (resp.status === 200) {
+        // Now that the order is inserted, proceed with printing
+        handlePrint();
+        resetBill();
+      } else {
+        // Handle error if the request was not successful
+        console.error("Error: Unable to add order.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
   };
-  
+
   const handlePrint = () => {
     // Open a new window for printing
     const printWindow = window.open("", "_blank");
     printWindow.document.write("<html><head><title>Print</title></head><body>");
-    printWindow.document.write("<style> .print-container { height: auto; margin: auto; } </style>");
-    printWindow.document.write('<div class="print-container" id="bill-content">');
-  
+    printWindow.document.write(
+      "<style> .print-container { height: auto; margin: auto; } </style>"
+    );
+    printWindow.document.write(
+      '<div class="print-container" id="bill-content">'
+    );
+
     // Get the rendered HTML content of the displayed bill
     const billContent = document.getElementById("bill-content").innerHTML;
     printWindow.document.write(billContent);
     // ... Sub Total, Tax, Grand Total rows
-  
+
     printWindow.document.write("</div>");
     printWindow.document.write("</body></html>");
     printWindow.document.close();
-  
+
     // Wait for images and stylesheets to load before calculating content height
     printWindow.onload = () => {
       const contentHeight = printWindow.document.body.scrollHeight;
-      printWindow.document.querySelector(".print-container").style.height = `${contentHeight + 20}px`;
+      printWindow.document.querySelector(".print-container").style.height = `${
+        contentHeight + 20
+      }px`;
       printWindow.print();
     };
-  
+
     // Reset customer details and productsForBill here, if needed
     setCustomerName("");
     setMobileNumber("");
     // setProductsForBill({});
   };
-  
+
   // Call insertOrderInDatabase when you want to trigger the process
-  
+
   return (
     <div className="w-full lg:w-1/4 bg-white rounded-xl shadow-lg m-3 max-h-[700px] overflow-y-auto">
       <table className="w-full">

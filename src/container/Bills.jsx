@@ -87,10 +87,9 @@ export default function Bills() {
 
   const removeProduct = (id) => {
     const updatedProducts = [...productsForBill]
-    const productToRemove = updatedProducts.filter(product => product.selectedProduct.id === id);
-    const index = updatedProducts.indexOf(productToRemove)
+    const productToRemove = updatedProducts.filter(product => product.selectedProduct.id == id);
+    const index = updatedProducts.indexOf(productToRemove[0])
     updatedProducts.splice(index, 1)
-    // const updatedProducts = productsForBill.filter((_, index) => index !== indexToRemove);
     setProductForBill(updatedProducts);
   };
   
