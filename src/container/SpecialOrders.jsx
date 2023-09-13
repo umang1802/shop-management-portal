@@ -3,6 +3,7 @@ import Card from "../component/Card/Card";
 import Content from "../component/Content";
 import OrderHistory from "../component/Table/OrderHistory";
 import axios from "axios";
+import AddNewOrder from "../component/AddNewOrder";
 
 export default function SpecialOrders() {
   const [showProductTable, setShowProductTable] = useState(true);
@@ -69,7 +70,7 @@ export default function SpecialOrders() {
         initiateAddNewCategory={initiateAddNewCategory}
         initiateAddNewProduct={initiateAddNewProduct}
         initiateShowInactiveProduct={initiateShowInactiveProduct}
-        subHeading="Special Order"
+        // subHeading="Special Order"
       />
       {showProductTable && (
         <div className="flex flex-wrap justify-">
@@ -79,7 +80,7 @@ export default function SpecialOrders() {
         </div>
       )}
       {showAddProduct && <OrderHistory />}
-      {showAddCategory && <></>}
+      {showAddCategory && <AddNewOrder/>}
     </>
   );
 }

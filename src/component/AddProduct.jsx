@@ -9,6 +9,7 @@ const AddProduct = () => {
     min_stock: "s",
     unit: "Kg",
     price: "",
+    productImage: null,
   });
 
   const [count, setCount] = useState(0);
@@ -43,34 +44,12 @@ const AddProduct = () => {
     fetchData();
   }, [product]);
 
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleUpload = async () => {
-    const formData = new FormData();
-    formData.append('image', file);
-
-    try {
-      await axios.post('http://localhost:3001/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
-      alert('File uploaded successfully');
-    } catch (error) {
-      console.error('Error uploading file:', error);
-    }
-  };
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
+    const { name, value, files } = e.target;
+    setProduct({
+      ...product,
+      [name]: name === 'productImage' ? files[0] : value,
+    });
   };
 
   const handleRawMaterialChange = (e, index) => {
@@ -98,12 +77,21 @@ const AddProduct = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append('product_name', product.product_name);
+      formDataToSend.append('category_id', product.category_id);
+      formDataToSend.append('min_stock', product.min_stock);
+      formDataToSend.append('unit', product.unit);
+      formDataToSend.append('price', product.price);
+      formDataToSend.append('productImage', product.productImage);
+
+    
     const response = await axios.post(
       "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/add-products",
-      {
-        ...product,
-      }
+      formDataToSend
     );
+    if(response){
     alert("New product added");
     // Reset the form fields
     setProduct({
@@ -112,8 +100,13 @@ const AddProduct = () => {
       min_stock: "",
       unit: "",
       price: "",
+      productImage: null,
       rawMaterial: rawMaterial, 
-    });
+    });}
+  } catch (error) {
+    console.error(error);
+    alert('Error saving product data.');
+  }
   };
 
   return (
@@ -196,7 +189,14 @@ const AddProduct = () => {
           <div className="flex flex-col items-start w-full mt-6">
             <div className="text-blue-600 text-base">Price</div>
             <div className="w-full mt-2">
-            <input type="file" accept="image/*" onChange={handleFileChange} />
+            <input
+            type="file"
+            id="productImage"
+            name="productImage"
+            onChange={handleChange}
+            accept=".jpg, .jpeg, .png"
+            required
+          />
             </div>
           </div>
           <div className="flex items-center justify-center">

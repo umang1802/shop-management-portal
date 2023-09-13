@@ -1,7 +1,6 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 
-function PreviewBill({ productsForBill, removeProduct, resetBill }) {
+function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
   const [total_amount, setTotalPrice] = useState(0);
   const [customer_name, setCustomerName] = useState("");
   const [mobile_number, setMobileNumber] = useState("");
@@ -79,7 +78,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill }) {
       <table className="w-full">
         <thead className="bg-blue-50 rounded-xl">
           <tr>
-            <th className="px-4 py-2">Preview Bill</th>
+            <th className="px-4 py-2">{heading}</th>
           </tr>
         </thead>
         <tbody>
@@ -113,7 +112,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill }) {
           {productsForBill &&
             productsForBill.map((item) => (
               <tr key={item.selectedProduct.id}>
-                <td className="flex items-center px-2 py-2 border border-gray-200 shadow-sm">
+                <td className="mt -2 flex items-center px-2 py-2 border border-gray-200 shadow-sm">
                   <div className="w-1/2 text-sm font-semibold text-gray-800">
                     {item.selectedProduct.product_name}
                   </div>
@@ -157,7 +156,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill }) {
       <div id="bill-content" className="hidden">
         <div>
           <img
-            src={require("../../assets/images/bill-header.jpeg")}
+            src={require("../../assets/images/bill-header.jpg")}
             height="250"
             width="500"
             alt="text"
@@ -257,7 +256,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill }) {
           </div>
           <div className="mt-4">
             <img
-              src={require("../../assets/images/bill-footer.jpeg")}
+              src={require("../../assets/images/bill-footer.jpg")}
               height="250"
               width="500"
               alt="text"

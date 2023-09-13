@@ -1,4 +1,3 @@
-import Item from "antd/es/list/Item";
 import React from "react";
 
 function Card(props) {
