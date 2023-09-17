@@ -9,7 +9,6 @@ function ExpenseHistory() {
   const handleOpenModal = () => {
    
     setIsModalOpen(true);
-    console.log('Modal opened');
   };
 
   const handleCloseModal = () => {

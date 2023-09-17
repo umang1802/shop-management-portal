@@ -23,7 +23,6 @@ function AddExpenseCard(props) {
         outlet_id,
       })
       .then((resp) => {
-        console.log("Success");
         props.dataUpdated();
         setAmount('');
         setDescription('');

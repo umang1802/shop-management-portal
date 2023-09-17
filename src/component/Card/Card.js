@@ -6,7 +6,6 @@ function Card(props) {
   }
 
   return (
-    props.orderData.type === "special" && (
       <div className="w-full sm:w-1/2 md:w-1/4 lg:w-25% bg-white rounded-2xl shadow-2xl m-4">
         <div className="flex p-4">
           <div>
@@ -73,7 +72,6 @@ function Card(props) {
         </div>
       </div>
     )
-  );
 }
 
 export default Card;

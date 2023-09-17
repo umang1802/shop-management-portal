@@ -56,7 +56,6 @@ function AddNewOrder() {
   return (
     <div>
       {" "}
-      {console.log(orderData)}
       <div className="flex flex-wrap justify-">
         <ChooseProduct
           productData={dbData}

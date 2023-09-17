@@ -47,7 +47,7 @@ export default function SpecialOrders() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/get-orders");
+            const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/get-orders?type=special");
             setOrders(response.data.rows);
             console.log(response.data.rows);
         } catch (error) {
@@ -71,11 +71,11 @@ export default function SpecialOrders() {
         initiateAddNewProduct={initiateAddNewProduct}
         initiateShowInactiveProduct={initiateShowInactiveProduct}
         // subHeading="Special Order"
-      />
+      >{heading}</Content>
       {showProductTable && (
         <div className="flex flex-wrap justify-">
           {orders.map((item)=>{
-             return <Card orderData={item} />
+             return <Card orderData={item} key={item.id}/>
           })}
         </div>
       )}

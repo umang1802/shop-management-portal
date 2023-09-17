@@ -12,6 +12,7 @@ import ProductDetailPage from "./component/ProductDetailPage";
 
 
 const ShopRoutes = () => {
+  const storedUsername = localStorage.getItem('username');
   return (
     <AuthContext.Consumer>
       {({ isAuthenticated }) => (
@@ -20,7 +21,7 @@ const ShopRoutes = () => {
           <Route
             path="/"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                 </Layout>
@@ -32,7 +33,7 @@ const ShopRoutes = () => {
           <Route
             path="/product"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <Dashboard />
@@ -45,7 +46,7 @@ const ShopRoutes = () => {
           <Route
             path="/special-order"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <Offer />
@@ -58,7 +59,7 @@ const ShopRoutes = () => {
           <Route
             path="/expense"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <Expense />
@@ -71,7 +72,7 @@ const ShopRoutes = () => {
           <Route
             path="/bills"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <Bills />
@@ -84,7 +85,7 @@ const ShopRoutes = () => {
           <Route
             path="/pdp/:productId"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <ProductDetailPage />
@@ -97,7 +98,7 @@ const ShopRoutes = () => {
           <Route
             path="/priceUpdate"
             element={
-              isAuthenticated ? (
+              storedUsername ? (
                 <Layout>
                   {" "}
                   <Products />

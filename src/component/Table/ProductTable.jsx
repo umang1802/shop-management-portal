@@ -1,5 +1,5 @@
 import axios from "axios";
-import React from "react";
+import React, {useEffect} from "react";
 import { Link } from "react-router-dom";
 
 const Table = ({ data, pageSize }) => {
@@ -16,12 +16,13 @@ const Table = ({ data, pageSize }) => {
   const [outletStock, setOutletStock] = React.useState(0);
   const [warehouseId, setWarehouseId] = React.useState(0);
 
+  pageSize=10;
   const totalPages = Math.ceil(filteredData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
   const currentData = filteredData.slice(startIndex, endIndex);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const filterData = data.filter((item) => {
       if (
         categoryFilters.length === 0 ||
@@ -175,7 +176,7 @@ const Table = ({ data, pageSize }) => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {data.map((item) => (
+                  {currentData.map((item) => (
                     <tr key={item.id}>
                       <Link to={`/pdp/${item.id}`} state={{ product: item }}>
                         <td className="px-6 py-4 whitespace-nowrap">
@@ -272,46 +273,39 @@ const Table = ({ data, pageSize }) => {
             </div>
           </div>
           <div className="flex justify-between items-center mt-4 px-8">
-            <nav
-              className="relative z-0 inline-flex rounded-md shadow-sm"
-              aria-label="Pagination"
+        <nav className="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
+          {/* Previous button */}
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          >
+            Previous
+          </button>
+          {/* Page buttons */}
+          {[...Array(totalPages)].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => handlePageChange(index + 1)}
+              className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
+                currentPage === index + 1
+                  ? "text-indigo-500 bg-indigo-100"
+                  : "text-gray-700 hover:bg-gray-50"
+              }`}
             >
-              <div className="flex justify-end mt-4">
-                <nav
-                  className="relative z-0 inline-flex rounded-md shadow-sm"
-                  aria-label="Pagination"
-                >
-                  <button
-                    onClick={() => handlePageChange(currentPage - 1)}
-                    disabled={currentPage === 1}
-                    className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                  >
-                    Previous
-                  </button>
-                  {[...Array(totalPages)].map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handlePageChange(index + 1)}
-                      className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
-                        currentPage === index + 1
-                          ? "text-indigo-500 bg-indigo-100"
-                          : "text-gray-700 hover:bg-gray-50"
-                      }`}
-                    >
-                      {index + 1}
-                    </button>
-                  ))}
-                  <button
-                    onClick={() => handlePageChange(currentPage + 1)}
-                    disabled={currentPage === totalPages}
-                    className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-                  >
-                    Next
-                  </button>
-                </nav>
-              </div>
-            </nav>
-          </div>
+              {index + 1}
+            </button>
+          ))}
+          {/* Next button */}
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+          >
+            Next
+          </button>
+        </nav>
+      </div>
         </div>
       </div>
     </>

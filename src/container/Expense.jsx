@@ -49,7 +49,7 @@ export default function Expense() {
   const day = currentDate.getDate(); // Get the day of the month
   const monthIndex = currentDate.getMonth(); // Get the month index (0-11)
   const year = currentDate.getFullYear(); // Get the full year
-  const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
 
   const monthNames = [
     "Jan",
@@ -71,7 +71,9 @@ export default function Expense() {
 
   const fetchData = () => {
     axios
-      .get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/outlet/get-outlets")
+      .get(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/outlet/get-outlets"
+      )
       .then((resp) => {
         setData(resp.data.rows);
       })
@@ -94,16 +96,19 @@ export default function Expense() {
     const selectedOption = event.target.value;
     setSelectedOutlet(selectedOption);
   };
-  useEffect(()=>{
+  useEffect(() => {
     axios
-      .post("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/get-outlet-expense",{selectedOutlet,dbDate})
+      .post(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/get-outlet-expense",
+        { selectedOutlet, dbDate }
+      )
       .then((resp) => {
         setOutletData(resp.data.rows);
       })
       .catch((err) => {
         console.error("Error fetching data:", err);
       });
-  },[selectedOutlet])
+  }, [dbDate, selectedOutlet]);
 
   return (
     <>
@@ -136,11 +141,21 @@ export default function Expense() {
             </select>
           </>
         }
-      />
+      >
+        {heading}
+      </Content>
       {showProductTable && (
         <div className="flex flex-wrap justify-">
-          <ExpenseCard firstHeading="Expense Details" secondHeading="Amount" data={outeletData}/>
-          <AddExpenseCard heading="Add New Expense" outlet_id={selectedOutlet} dataUpdated={()=>setCategoryAdded(true)}/>
+          <ExpenseCard
+            firstHeading="Expense Details"
+            secondHeading="Amount"
+            data={outeletData}
+          />
+          <AddExpenseCard
+            heading="Add New Expense"
+            outlet_id={selectedOutlet}
+            dataUpdated={() => setCategoryAdded(true)}
+          />
         </div>
       )}
       {showAddProduct && <></>}

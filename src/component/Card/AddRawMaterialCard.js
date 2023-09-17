@@ -22,7 +22,6 @@ function AddRawMaterialCard(props) {
       })
       .then((resp) => {
         alert('Raw Material Added Sucessfully')
-        console.log("Success");
         setName('');
       })
       .catch((err) => {

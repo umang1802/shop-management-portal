@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
   const [total_amount, setTotalPrice] = useState(0);
@@ -15,13 +16,19 @@ function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
   }, [productsForBill]);
 
   const insertOrderInDatabase = async () => {
+    const defaultCustomerName = "Customer";
+    const defaultMobileNumber = "1234567890";
+
+    // Use default values if customer_name or mobile_number is blank
+    const customerNameToUse = customer_name || defaultCustomerName;
+    const mobileNumberToUse = mobile_number || defaultMobileNumber;
     try {
       // Make the POST request to add an order
       const resp = await axios.post(
         "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
         {
-          customer_name,
-          mobile_number,
+          customer_name:customerNameToUse,
+          mobile_number:mobileNumberToUse,
           total_amount,
           type: "normal",
         }
@@ -161,7 +168,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
       <div id="bill-content" className="hidden">
         <div>
           <img
-            src={require("../../assets/images/bill-header.jpg")}
+            src={require("../../assets/images/Bill-Header.jpg")}
             height="250"
             width="500"
             alt="text"
@@ -261,7 +268,7 @@ function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
           </div>
           <div className="mt-4">
             <img
-              src={require("../../assets/images/bill-footer.jpg")}
+              src={require("../../assets/images/Bill-Footer.jpg")}
               height="250"
               width="500"
               alt="text"

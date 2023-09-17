@@ -95,7 +95,6 @@ function Main(props) {
       try {
         const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products");
         setdbData(response.data);
-        console.log('resp---->', response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -108,14 +107,12 @@ function Main(props) {
     setShowProductTable(false);
     setShowAddCategory(false);
     setShowAddProduct(true);
-    console.log('initiated1')
   }
 
   const initiateAddNewCategory = () => {
     setShowProductTable(false);
     setShowAddCategory(true);
     setShowAddProduct(false);
-    console.log('initiated2')
   }
 
   return (

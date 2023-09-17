@@ -5,9 +5,9 @@ function Content(props) {
     <>
       <div className="block md:flex md:items-center lg:flex lg:items-center xl:flex xl:items-center">
         <div className="text-xl md:text-2xl lg:text-4xl xl:text-4xl font-bold text-gray-900 text-left">
-          {props.heading}
+          {props.children}
         </div>
-        <div className="hidden md:block lg:block xl:block ml-auto flex items-center text-gray-400 text-sm font-normal">
+        <div className="md:block lg:block xl:block ml-auto flex items-center text-gray-400 text-sm font-normal">
           Teusday | 25 Apr 2023 | 8:20 AM
             <input
               type="text"

@@ -81,7 +81,7 @@ export default function Dashboard() {
     return (
         <div>
             <div className="mt-4">
-                <Content heading={heading} button4Text="Add Raw Material" button1Text="Add New Product"  button2Text="Add New Category" button3Text="View Inacitve Products" showInactiveProduct={showInactiveProduct} showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct}  initiateShowInactiveProduct={initiateShowInactiveProduct} initiateAddNewButtonThird={initiateAddNewButtonThird}/>
+                <Content heading={heading} button4Text="Add Raw Material" button1Text="Add New Product"  button2Text="Add New Category" button3Text="View Inacitve Products" showInactiveProduct={showInactiveProduct} showAddCategory={showAddCategory} showAddProduct={showAddProduct} backToShowProduct={backToShowProduct} initiateAddNewCategory={initiateAddNewCategory} initiateAddNewProduct={initiateAddNewProduct}  initiateShowInactiveProduct={initiateShowInactiveProduct} initiateAddNewButtonThird={initiateAddNewButtonThird}><h1>{heading}</h1></Content>
                 {showProductTable && <ProductTable data={dbData} pageSize={pageSize} />}
                 {showAddProduct && <AddProduct />}
                 {showAddCategory && <AddCategory />}
