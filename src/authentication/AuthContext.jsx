@@ -5,23 +5,18 @@ const AuthContext = React.createContext();
 
 // Create a provider component to wrap the application
 const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [role, setRole] = useState('');
 
-  const login = () => {
+  const getRole = () => {
     // Perform your login logic here
-    setIsAuthenticated(true);
+    setRole(localStorage.getItem('role'));
   };
 
-  const logout = () => {
-    // Perform your logout logic here
-    setIsAuthenticated(false);
-  };
 
   // Pass the authentication state and actions to the value prop
   const authContextValue = {
-    isAuthenticated,
-    login,
-    logout,
+    role,
+    getRole,
   };
 
   return <AuthContext.Provider value={authContextValue}>{children}</AuthContext.Provider>;

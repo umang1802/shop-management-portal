@@ -6,7 +6,7 @@ import { AuthContext } from './authentication/AuthContext';
 const LoginScreen = () => {
   const [name, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const { login } = useContext(AuthContext);
+  const { getRole } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
@@ -23,8 +23,9 @@ const LoginScreen = () => {
     try {
       const response = await axios.post('http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/users/login', { name, password });
       if (response.data.rows.length > 0) {
-        login();
-        localStorage.setItem('username',response.data.rows[0].name) ;
+        localStorage.setItem('username',response.data.rows[0].name);
+        localStorage.setItem('role',response.data.rows[0].role);
+        getRole();
         navigate('/');
       } else {
         alert('Enter a valid username and password');
