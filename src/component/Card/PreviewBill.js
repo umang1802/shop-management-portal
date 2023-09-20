@@ -1,10 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
-function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
+function PreviewBill({
+  productsForBill,
+  removeProduct,
+  resetBill,
+  heading,
+  orderData,
+}) {
   const [total_amount, setTotalPrice] = useState(0);
   const [customer_name, setCustomerName] = useState("");
   const [mobile_number, setMobileNumber] = useState("");
+  const location = useLocation();
 
   useEffect(() => {
     const totalPrice = productsForBill.reduce(
@@ -20,24 +28,40 @@ function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
     const defaultMobileNumber = "1234567890";
 
     // Use default values if customer_name or mobile_number is blank
-    const customerNameToUse = customer_name || defaultCustomerName;
-    const mobileNumberToUse = mobile_number || defaultMobileNumber;
+    const customerNameToUse =
+      customer_name || orderData.customer_name || defaultCustomerName;
+    const mobileNumberToUse =
+      mobile_number || orderData.mobile_number || defaultMobileNumber;
+    const typeToUse = location.pathname === "/bills" ? "normal" : "special";
+    const customerAddresseToUse = orderData.customer_address || "";
+    const deliveryDateToUse = orderData.delivery_date || "";
+    const deliveryTimeToUse = orderData.delivery_time || "";
+    const discountToUse = orderData.discount || 0;
+    const noteToUse = orderData.note || "";
+
     try {
       // Make the POST request to add an order
       const resp = await axios.post(
         "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
         {
-          customer_name:customerNameToUse,
-          mobile_number:mobileNumberToUse,
+          customer_name: customerNameToUse,
+          mobile_number: mobileNumberToUse,
           total_amount,
-          type: "normal",
+          type: typeToUse,
+          customer_address: customerAddresseToUse,
+          delivery_date: deliveryDateToUse,
+          delivery_time: deliveryTimeToUse,
+          discount: discountToUse,
+          note: noteToUse,
         }
       );
 
       // Check if the request was successful
       if (resp.status === 200) {
         // Now that the order is inserted, proceed with printing
-        handlePrint();
+        location.pathname === "/bills"
+          ? handlePrint()
+          : alert("Order Added Succesfully");
         resetBill();
       } else {
         // Handle error if the request was not successful
@@ -96,29 +120,37 @@ function PreviewBill({ productsForBill, removeProduct, resetBill, heading }) {
         <tbody>
           <tr>
             <td className="text-center">
-              <input
-                type="text"
-                className="border rounded-full text-sm px-4 py-2 m-2 w-5/6 border-blue-400 text-blue-400 placeholder:text-black-400"
-                placeholder="Customer's Name"
-                onChange={(e) => setCustomerName(e.target.value)}
-              />
-              <input
-                className={`border rounded-full text-sm px-4 py-2 mx-2 w-5/6 ${
-                  !/^[0-9]{10}$/.test(mobile_number)
-                    ? "border-red-500"
-                    : "border-blue-400"
-                } ${
-                  !/^[0-9]{10}$/.test(mobile_number)
-                    ? "text-red-500"
-                    : "text-blue-400"
-                } placeholder:text-black-400`}
-                placeholder="Mobile No."
-                type="number"
-                maxLength="10"
-                pattern="[0-9]{10}"
-                value={mobile_number}
-                onChange={(e) => setMobileNumber(e.target.value)}
-              />
+              {orderData && orderData.customer_name ? (
+                <div className="">{orderData.customer_name} </div>
+              ) : (
+                <input
+                  type="text"
+                  className="border rounded-full text-sm px-4 py-2 m-2 w-5/6 border-blue-400 text-blue-400 placeholder:text-black-400"
+                  placeholder="Customer's Name"
+                  onChange={(e) => setCustomerName(e.target.value)}
+                />
+              )}
+              {orderData && orderData.mobile_number ? (
+                <div className="">{orderData.mobile_number} </div>
+              ) : (
+                <input
+                  className={`border rounded-full text-sm px-4 py-2 mx-2 w-5/6 ${
+                    !/^[0-9]{10}$/.test(mobile_number)
+                      ? "border-red-500"
+                      : "border-blue-400"
+                  } ${
+                    !/^[0-9]{10}$/.test(mobile_number)
+                      ? "text-red-500"
+                      : "text-blue-400"
+                  } placeholder:text-black-400`}
+                  placeholder="Mobile No."
+                  type="number"
+                  maxLength="10"
+                  pattern="[0-9]{10}"
+                  value={mobile_number}
+                  onChange={(e) => setMobileNumber(e.target.value)}
+                />
+              )}
             </td>
           </tr>
           {productsForBill &&

@@ -68,6 +68,7 @@ function AddNewOrder() {
           productsForBill={productsForBill}
           removeProduct={removeProduct}
           resetBill={resetBill}
+          orderData={orderData}
         />
       </div>
     </div>

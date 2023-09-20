@@ -1,20 +1,21 @@
 import React from "react";
 
-function Card(props) {
+function ModalCard(props) {
   function limit(string = "", limit = 0) {
     return string.substring(0, limit);
   }
 
   return (
-      <div className="w-full sm:w-1/2 md:w-1/4 lg:w-25% bg-white rounded-2xl shadow-2xl m-4">
+      <div className="w-full bg-white rounded-2xl shadow-2xl">
+        {console.log(props)}
         <div className="flex p-4">
           <div>
             <h2 className="text-xl font-bold">
-              {props.orderData && props.orderData.customer_name} 
+              {(props.orderData && props.orderData.customer_name) || ''} 
             </h2>
             <p className="text-sm font-bold">
-              {props.orderData && props.orderData.mobile_number} | {" "}
-              {props.orderData && props.orderData.customer_address} | {''}
+              {(props.orderData && props.orderData.mobile_number)|| ''} | {" "}
+              {(props.orderData && props.orderData.customer_address) || ''} 
             </p>
           </div>
         </div>
@@ -24,11 +25,11 @@ function Card(props) {
         </div>
         <div className="flex justify-between px-4">
           <label className="justify-left">
-            {props.orderData && limit(props.orderData.delivery_date, 10)} |{''}
+            {(props.orderData &&  props.orderData.delivery_date && limit(props.orderData.delivery_date, 10)) || ''} 
           </label>
-          <label className="justify-right mr-8">
+          <label className="justify-right mr-7">
             {" "}
-            {props.orderData && props.orderData.delivery_time} | {''}
+            {(props.orderData && props.orderData.delivery_time) || ''} 
           </label>
         </div>
         <div className="bg-gradient-to-b from-purple-800 via-pink-500 to-red-500 text-gray-100 p-4 mt-4 rounded-2xl">
@@ -47,16 +48,16 @@ function Card(props) {
             <label>50 Piece</label>{" "}
             <label className="text-sm ml-4">Khoya</label>
           </div>
-          <div className=" p-2">
+          {/* <div className=" p-2">
             <p className="md:text-sm lg:text-lg  font-semibold">Gulab Jamun</p>
             <label>50 Piece</label>{" "}
             <label className="text-sm ml-4">Khoya</label>
-          </div>
+          </div> */}
           <div className="bg-white rounded-2xl text-black text-sm mt-8">
             <div className="flex flex-col items-center">
-              <p className="text-center">Total Amount :</p>
+              <p className="text-center">Total Amount : {(props.orderData && props.orderData.total_amount) || 0} </p>
               <p className="text-center">Advance :</p>
-              <p className="text-center">Discount :</p>
+              <p className="text-center">Discount : {(props.orderData && props.orderData.discount) || 0}</p>
               <p className="text-center">Pending Amount :</p>
             </div>
             <hr className="mt-4 mx-4" />
@@ -65,7 +66,7 @@ function Card(props) {
             </div>
             <div className="flex justify-center">
               <label className="text-xs mb-2">
-                Packing in the red box with the ribbon
+              {(props.orderData && props.orderData.note) || 'This is a regular Order'}
               </label>
             </div>
           </div>
@@ -74,4 +75,4 @@ function Card(props) {
     )
 }
 
-export default Card;
+export default ModalCard;
