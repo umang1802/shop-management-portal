@@ -29,15 +29,15 @@ function PreviewBill({
 
     // Use default values if customer_name or mobile_number is blank
     const customerNameToUse =
-      customer_name || orderData.customer_name || defaultCustomerName;
+      customer_name || (orderData && orderData.customer_name) || defaultCustomerName;
     const mobileNumberToUse =
-      mobile_number || orderData.mobile_number || defaultMobileNumber;
+      mobile_number || (orderData && orderData.mobile_number) || defaultMobileNumber;
     const typeToUse = location.pathname === "/bills" ? "normal" : "special";
-    const customerAddresseToUse = orderData.customer_address || "";
-    const deliveryDateToUse = orderData.delivery_date || "";
-    const deliveryTimeToUse = orderData.delivery_time || "";
-    const discountToUse = orderData.discount || 0;
-    const noteToUse = orderData.note || "";
+    const customerAddresseToUse = (orderData &&orderData.customer_address) || "";
+    const deliveryDateToUse = (orderData && orderData.delivery_date ) || "2023-01-01";
+    const deliveryTimeToUse = (orderData && orderData.delivery_time) || "22:30:00";
+    const discountToUse = (orderData && orderData.discount) || 0;
+    const noteToUse = (orderData && orderData.note ) || "";
 
     try {
       // Make the POST request to add an order
@@ -53,11 +53,12 @@ function PreviewBill({
           delivery_time: deliveryTimeToUse,
           discount: discountToUse,
           note: noteToUse,
+          productsForBill: productsForBill
         }
       );
 
       // Check if the request was successful
-      if (resp.status === 200) {
+      if (resp.status === 201) {
         // Now that the order is inserted, proceed with printing
         location.pathname === "/bills"
           ? handlePrint()
