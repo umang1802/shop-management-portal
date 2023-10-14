@@ -15,11 +15,13 @@ import AccessDenied from "./AccessDenied";
 
 const ShopRoutes = () => {
   const storedUsername = localStorage.getItem('username');
+  const storedRole = localStorage.getItem('role');
 
   return (
     <AuthContext.Consumer>
       {({ role }) => (
         <Routes>
+          {console.log(role,storedUsername)}
           <Route path="/login" element={<LoginScreen />} />
           <Route
             path="/"
@@ -27,7 +29,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin' ) ?<Home/>: <AccessDenied/>}
+                  {(role || storedRole === 'admin' ) ?<Home/>: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -40,7 +42,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin'|| role ==='outlet_manager') ?<Dashboard />: <AccessDenied/>}
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<Dashboard />: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -53,7 +55,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin' || role ==='outlet_manager') ?<Offer />: <AccessDenied/>}
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<Offer />: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -79,7 +81,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin' ||role ==='outlet_manager') ? <Bills />: 
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ? <Bills />: 
                    <AccessDenied/>}
                 </Layout>
               ) : (
@@ -93,7 +95,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin' ||role ==='outlet_manager') ?<ProductDetailPage /> : <AccessDenied/>}
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<ProductDetailPage /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -106,7 +108,7 @@ const ShopRoutes = () => {
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {(role === 'admin' ||role ==='outlet_manager') ? <Products /> : <AccessDenied/>}
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ? <Products /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

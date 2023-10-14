@@ -31,6 +31,7 @@ function RecommendedProduct({ productData, setSelectedProduct, setSelectedProduc
               />
             </td>
           </tr>
+          <div className="h-96 overflow-y-auto">
           {filteredProducts.map((item) => (
             <div
               key={item.id} // Make sure to provide a unique key
@@ -39,7 +40,7 @@ function RecommendedProduct({ productData, setSelectedProduct, setSelectedProduc
             >
               <div className="text-xl text-gray-700 font-semibold">{item.product_name}</div>
             </div>
-          ))}
+          ))}</div>
         </tbody>
       </table>
     </div>

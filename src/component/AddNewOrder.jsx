@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ChooseProduct from "./Card/ChooseProduct";
+import ChooseProductV2 from "./Card/ChooseProductV2";
 import axios from "axios";
 import OrderDetails from "./Card/OrderDetails";
 import PreviewBill from "./Card/PreviewBill";
@@ -15,6 +15,8 @@ function AddNewOrder() {
     delivery_date: "",
     delivery_time: "",
     total_amount: "",
+    advance_amount: "",
+    pending_amount: "",
     discount: "",
     note: "",
   });
@@ -43,6 +45,10 @@ function AddNewOrder() {
     setSelectedProducts({});
   };
 
+  const handleProductSelection = (selectedProduct) => {
+    setSelectedProducts(selectedProduct);
+  };
+
   const removeProduct = (id) => {
     const updatedProducts = [...productsForBill];
     const productToRemove = updatedProducts.filter(
@@ -57,10 +63,11 @@ function AddNewOrder() {
     <div>
       {" "}
       <div className="flex flex-wrap justify-">
-        <ChooseProduct
+        <ChooseProductV2
           productData={dbData}
           selectedProduct={selectedProducts}
           onProductSelection={AddProductToBill}
+          onProductSelect={handleProductSelection}
         />
         <OrderDetails orderData={orderData} setOrderData={setOrderData} />
         <PreviewBill

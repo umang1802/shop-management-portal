@@ -57,9 +57,9 @@ function OrderDetails({ orderData, setOrderData }) {
               />
               <input
                 type="number"
-                name="total_amount"
+                name="advance_amount"
                 className="border rounded-full text-sm px-4 py-2 m-2 w-5/6 border-blue-400 text-blue-400 placeholder:text-black-400"
-                placeholder="Total Amount"
+                placeholder="Advance Amount"
                 onChange={handleChange}
               />
               <input

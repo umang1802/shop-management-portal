@@ -35,7 +35,6 @@ export default function Products() {
 
   return (
     <div>
-      <Content>Product Price Update</Content>
       <div className="w-full lg:w-5/12 bg-white rounded-xl shadow-lg m-3 max-h-[700px] overflow-y-auto p-4">
         <table className="w-full">
           <thead className="bg-blue-50 rounded-xl">

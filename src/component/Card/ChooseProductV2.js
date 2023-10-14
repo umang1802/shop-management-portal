@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-function ChooseProduct({productData, selectedProduct, selectedProductId, setSelectedProductId, onProductSelection}) {
+function ChooseProductV2({productData, selectedProduct, selectedProductId, setSelectedProductId, onProductSelection, onProductSelect}) {
   const [categories, setCategories] = useState([]);
   const [filteredList, setFilteredProductList] = useState([]);
   const [selectedProd, setSelectedProduct] = useState({});
   const [productUnit, setUnit] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const unitMap = ["kg", "gram","unit"]
 
@@ -14,6 +15,10 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
   }, [selectedProduct])
 
   const [product, setProduct] = useState([]);
+
+  const filteredProducts = productData.filter((item) =>
+  item.product_name.toLowerCase().includes(searchQuery.toLowerCase())
+);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,9 +49,8 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
    }
   };
 
-  const handleProductClick = (item, id) => {
-    setSelectedProduct(item);
-    setSelectedProductId(id);
+  const handleProductClick = (product) => {
+    onProductSelect(product);
   };
 
   const filterProductByCategories = (id) => {
@@ -65,23 +69,26 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
         </thead>
         <tbody>
           <tr>
-            <div className="flex flex-col mt-4 text-center">
-              <div className="text-blue-500 font-semibold text-center">
-                Select Category
-              </div>
-              <div className="">
-              <select
-               onChange={(e) => {filterProductByCategories(e.target.value)}}
-                name="category_id"
-                className="py-2 px-2 border border-blue-400 m-2 w-4/6 text-blue-400 rounded-sm text-center">
-                {categories.map((item) => (
-                  <option value={item.id}>{item.name}</option>
-                ))}
-               
-              </select>
-              </div>
-            </div>
+            <td className="text-center">
+              <input
+                type="text"
+                className="border rounded-full px-2 py-2 m-2 w-5/6"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </td>
           </tr>
+          <div className="h-96 overflow-y-auto">
+          {filteredProducts.map((item) => (
+            <div
+              key={item.id} // Make sure to provide a unique key
+              className="flex px-4 py-6 shadow-sm hover:bg-gray-200"
+              onClick={() => handleProductClick(item)}
+            >
+              <div className="text-xl text-gray-700 font-semibold">{item.product_name}</div>
+            </div>
+          ))}</div>
         </tbody>
       </table>
       {
@@ -137,4 +144,4 @@ function ChooseProduct({productData, selectedProduct, selectedProductId, setSele
   );
 }
 
-export default ChooseProduct;
+export default ChooseProductV2;

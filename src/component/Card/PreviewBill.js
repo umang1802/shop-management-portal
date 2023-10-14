@@ -13,6 +13,7 @@ function PreviewBill({
   const [customer_name, setCustomerName] = useState("");
   const [mobile_number, setMobileNumber] = useState("");
   const location = useLocation();
+  const discountToUse = (orderData && orderData.discount) || 0;
 
   useEffect(() => {
     const totalPrice = productsForBill.reduce(
@@ -20,9 +21,14 @@ function PreviewBill({
         acc + Number(item.selectedProduct.price) * Number(item.quantity),
       0
     );
-    setTotalPrice(totalPrice);
-  }, [productsForBill]);
 
+    // Calculate the discount amount based on the total price
+    const discountAmount = (discountToUse / 100) * totalPrice;
+
+    setTotalPrice(totalPrice - discountAmount);
+  }, [productsForBill, discountToUse]); // Added 'discountToUse' to the dependency array
+
+ 
   const insertOrderInDatabase = async () => {
     const defaultCustomerName = "Customer";
     const defaultMobileNumber = "1234567890";
@@ -36,8 +42,10 @@ function PreviewBill({
     const customerAddresseToUse = (orderData &&orderData.customer_address) || "";
     const deliveryDateToUse = (orderData && orderData.delivery_date ) || "2023-01-01";
     const deliveryTimeToUse = (orderData && orderData.delivery_time) || "22:30:00";
-    const discountToUse = (orderData && orderData.discount) || 0;
+    
     const noteToUse = (orderData && orderData.note ) || "";
+    const advanceAmountToUse = (orderData && orderData.advance_amount) || 0;
+    const pendingAmountToUse = total_amount-advanceAmountToUse;
 
     try {
       // Make the POST request to add an order
@@ -47,6 +55,8 @@ function PreviewBill({
           customer_name: customerNameToUse,
           mobile_number: mobileNumberToUse,
           total_amount,
+          advance_amount: advanceAmountToUse,
+          pending_amount: pendingAmountToUse,
           type: typeToUse,
           customer_address: customerAddresseToUse,
           delivery_date: deliveryDateToUse,
