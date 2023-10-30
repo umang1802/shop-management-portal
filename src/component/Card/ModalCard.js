@@ -33,26 +33,13 @@ function ModalCard(props) {
           </label>
         </div>
         <div className="bg-gradient-to-b from-purple-800 via-pink-500 to-red-500 text-gray-100 p-4 mt-4 rounded-2xl">
-          <div className="p-2">
-            <p className="md:text-sm lg:text-lg font-semibold">Gulab Jamun</p>
-            <label>50 Piece</label>{" "}
-            <label className="text-sm ml-4">Khoya</label>
-          </div>
-          <div className=" p-2">
-            <p className="md:text-sm lg:text-lg  font-semibold">Gulab Jamun</p>
-            <label>50 Piece</label>{" "}
-            <label className="text-sm ml-4">Khoya</label>
-          </div>
-          <div className=" p-2">
-            <p className="md:text-sm lg:text-lg font-semibold">Gulab Jamun</p>
-            <label>50 Piece</label>{" "}
-            <label className="text-sm ml-4">Khoya</label>
-          </div>
-          {/* <div className=" p-2">
-            <p className="md:text-sm lg:text-lg  font-semibold">Gulab Jamun</p>
-            <label>50 Piece</label>{" "}
-            <label className="text-sm ml-4">Khoya</label>
-          </div> */}
+        {props.orderData && props.orderData.order_items && props.orderData.order_items.map((orderItem)=>{
+          return (<div className="p-2">
+          <p className="md:text-sm lg:text-lg font-semibold">{orderItem && orderItem.product_name}</p>
+          <label>{orderItem && orderItem.quantity} {orderItem && orderItem.product_unit}</label>{" "}
+          <label className="text-sm ml-4">{orderItem && orderItem.category_name}</label>
+        </div>)
+        }) }
           <div className="bg-white rounded-2xl text-black text-sm mt-8">
             <div className="flex flex-col items-center">
               <p className="text-center">Total Amount : {(props.orderData && props.orderData.total_amount) || 0} </p>

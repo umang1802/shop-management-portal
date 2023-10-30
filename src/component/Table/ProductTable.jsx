@@ -1,13 +1,11 @@
 import axios from "axios";
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 const Table = ({ data, pageSize }) => {
   const [currentPage, setCurrentPage] = React.useState(1);
   const [editItem, setEditItem] = React.useState(null);
   const [editedData, setEditedData] = React.useState({});
-  const [sortBy, setSortBy] = React.useState(null);
-  const [sortDirection, setSortDirection] = React.useState("asc");
   const [categoryFilters, setCategoryFilters] = React.useState([]);
   const [filteredData, setFilteredData] = React.useState([]);
   const [productId, setProductId] = React.useState(0);
@@ -16,7 +14,7 @@ const Table = ({ data, pageSize }) => {
   const [outletStock, setOutletStock] = React.useState(0);
   const [warehouseId, setWarehouseId] = React.useState(0);
 
-  pageSize=10;
+  pageSize = 10;
   const totalPages = Math.ceil(filteredData.length / pageSize);
   const startIndex = (currentPage - 1) * pageSize;
   const endIndex = startIndex + pageSize;
@@ -96,19 +94,6 @@ const Table = ({ data, pageSize }) => {
     }
   };
 
-  const handleSort = (column) => {
-    if (sortBy === column) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortBy(column);
-      setSortDirection("asc");
-    }
-  };
-
-  const handleCategoryFilterChange = (selectedOptions) => {
-    setCategoryFilters(selectedOptions);
-  };
-
   return (
     <>
       <div className="text-2xl text-gray-800 mt-4">
@@ -132,22 +117,6 @@ const Table = ({ data, pageSize }) => {
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
                       Category
-                      {/* <MultiSelect
-                      options={categories.map((category) => ({
-                        label: category,
-                        value: category,
-                      }))}
-                      value={categoryFilters}
-                      onChange={handleCategoryFilterChange}
-                      labelledBy="Select"
-                      className="mt-1"
-                      hasSelectAll={false}
-                      disableSearch={true}
-                      overrideStrings={{
-                        selectSomeItems: 'Select categories',
-                        allItemsAreSelected: 'All categories are selected',
-                      }}
-                    /> */}
                     </th>
                     <th
                       scope="col"
@@ -273,39 +242,40 @@ const Table = ({ data, pageSize }) => {
             </div>
           </div>
           <div className="flex justify-between items-center mt-4 px-8">
-        <nav className="relative z-0 inline-flex rounded-md shadow-sm" aria-label="Pagination">
-          {/* Previous button */}
-          <button
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-            className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-          >
-            Previous
-          </button>
-          {/* Page buttons */}
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => handlePageChange(index + 1)}
-              className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
-                currentPage === index + 1
-                  ? "text-indigo-500 bg-indigo-100"
-                  : "text-gray-700 hover:bg-gray-50"
-              }`}
+            <nav
+              className="relative z-0 inline-flex rounded-md shadow-sm"
+              aria-label="Pagination"
             >
-              {index + 1}
-            </button>
-          ))}
-          {/* Next button */}
-          <button
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-            className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-          >
-            Next
-          </button>
-        </nav>
-      </div>
+              {/* Previous button */}
+              <button
+                onClick={() => handlePageChange(currentPage - 1)}
+                disabled={currentPage === 1}
+                className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+              >
+                Previous
+              </button>
+              {[...Array(totalPages)].map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handlePageChange(index + 1)}
+                  className={`relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium ${
+                    currentPage === index + 1
+                      ? "text-indigo-500 bg-indigo-100"
+                      : "text-gray-700 hover:bg-gray-50"
+                  }`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+              <button
+                onClick={() => handlePageChange(currentPage + 1)}
+                disabled={currentPage === totalPages}
+                className="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
+              >
+                Next
+              </button>
+            </nav>
+          </div>
         </div>
       </div>
     </>

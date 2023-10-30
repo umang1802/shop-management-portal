@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./container/Dashboard";
-import Products from "./container/Products";
+import Emplopyees from "./container/Emplopyees";
 import Offer from "./container/SpecialOrders";
 import Expense from "./container/Expense";
 import LoginScreen from "./LoginScreen";
@@ -103,12 +103,12 @@ const ShopRoutes = () => {
             }
           />
           <Route
-            path="/priceUpdate"
+            path="/employee"
             element={
               storedUsername ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ? <Products /> : <AccessDenied/>}
+                  {((role || storedRole=== 'admin')) ? <Emplopyees /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

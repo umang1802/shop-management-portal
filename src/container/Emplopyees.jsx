@@ -1,24 +1,25 @@
-import React, { useState, useEffect } from "react";
-import Card from "../component/Card/Card";
+import React, { useEffect, useState } from "react";
 import Content from "../component/Content";
-import OrderHistory from "../component/Table/OrderHistory";
 import axios from "axios";
-import AddNewOrder from "../component/AddNewOrder";
+import EmployeeTable from "../component/Table/EmployeeTable";
+import AddEmployee from "../component/AddEmployee";
 
-export default function SpecialOrders() {
+export default function Emplopyees() {
+  const [heading, setHeading] = useState("Employees Table");
   const [showProductTable, setShowProductTable] = useState(true);
   const [showAddCategory, setShowAddCategory] = useState(false);
   const [showAddProduct, setShowAddProduct] = useState(false);
   const [showInactiveProduct, setShowInactiveProduct] = useState(false);
-  const [heading, setHeading] = useState("Special Order");
-  const [orders, setOrders] = useState([]);
+  const [dbData, setdbData] = useState([]);
+
+  const pageSize = 5;
 
   const initiateAddNewProduct = () => {
     setShowProductTable(false);
     setShowAddCategory(false);
     setShowAddProduct(true);
     setShowInactiveProduct(false);
-    setHeading("Order History");
+    setHeading("View Inactive Employees");
   };
 
   const initiateAddNewCategory = () => {
@@ -26,7 +27,7 @@ export default function SpecialOrders() {
     setShowAddCategory(true);
     setShowAddProduct(false);
     setShowInactiveProduct(false);
-    setHeading("Add New Order");
+    setHeading("Add New Employees");
   };
 
   const backToShowProduct = () => {
@@ -34,7 +35,7 @@ export default function SpecialOrders() {
     setShowAddProduct(false);
     setShowAddCategory(false);
     setShowInactiveProduct(false);
-    setHeading("Special Order");
+    setHeading("Employees Table");
   };
 
   const initiateShowInactiveProduct = () => {
@@ -46,21 +47,26 @@ export default function SpecialOrders() {
 
   useEffect(() => {
     const fetchData = async () => {
-        try {
-            const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/get-orders?type=special");
-            setOrders(response.data.rows);
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
+      try {
+        const response = await axios.get(
+          "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/employee"
+        );
+        console.log("response: " + response);
+        setdbData(response.data.rows);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
+
     fetchData();
-},[showProductTable]);
+  }, [showInactiveProduct]);
+
 
   return (
-    <>
+    <div>
       <Content
-        button1Text="Order History"
-        button2Text="Add New Order"
+        button1Text="View Inactive Employees"
+        button2Text="Add New Employees"
         showInactiveProduct={showInactiveProduct}
         showAddCategory={showAddCategory}
         showAddProduct={showAddProduct}
@@ -68,17 +74,10 @@ export default function SpecialOrders() {
         initiateAddNewCategory={initiateAddNewCategory}
         initiateAddNewProduct={initiateAddNewProduct}
         initiateShowInactiveProduct={initiateShowInactiveProduct}
-        // subHeading="Special Order"
-      >{heading}</Content>
-      {showProductTable && (
-        <div className="flex flex-wrap justify-">
-          {orders.map((item)=>{
-             return <Card orderData={item} key={item.id}/>
-          })}
-        </div>
-      )}
-      {showAddProduct && <OrderHistory />}
-      {showAddCategory && <AddNewOrder/>}
-    </>
+      >{heading}
+      </Content>
+      {showProductTable && <EmployeeTable data={dbData} pageSize={pageSize} />}
+      {showAddCategory && <AddEmployee />}
+    </div>
   );
 }

@@ -113,7 +113,6 @@ export default function Expense() {
   return (
     <>
       <Content
-        heading={heading}
         button1Text="Edit Today's Expense"
         button2Text="Expense History"
         showInactiveProduct={showInactiveProduct}

@@ -249,7 +249,7 @@ export default function SideBar() {
                             </div>
                         </div>
                     </NavLink>
-                    <NavLink to="/priceUpdate">
+                    <NavLink to="/employee">
                         <div className="flex items-center justify-center px-4 py-4 hover:bg-gray-300  rounded-r-full cursor-pointer">
                             <svg
                                 width="25"
@@ -280,7 +280,7 @@ export default function SideBar() {
                                 />
                             </svg>
                             <div className="ml-4 text-md font-semibold text-gray-800 hover:text-blue-400">
-                                Price Update
+                                Employee/Attendance
                             </div>
                         </div>
                     </NavLink>

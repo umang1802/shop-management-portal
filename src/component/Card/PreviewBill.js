@@ -13,7 +13,10 @@ function PreviewBill({
   const [customer_name, setCustomerName] = useState("");
   const [mobile_number, setMobileNumber] = useState("");
   const location = useLocation();
+  const [orderNo, setOrderNo] = useState(0);
   const discountToUse = (orderData && orderData.discount) || 0;
+
+  const outletId = 1;
 
   useEffect(() => {
     const totalPrice = productsForBill.reduce(
@@ -63,16 +66,17 @@ function PreviewBill({
           delivery_time: deliveryTimeToUse,
           discount: discountToUse,
           note: noteToUse,
-          productsForBill: productsForBill
+          productsForBill: productsForBill,
+          outletId: outletId
         }
       );
 
       // Check if the request was successful
+      
       if (resp.status === 201) {
         // Now that the order is inserted, proceed with printing
-        location.pathname === "/bills"
-          ? handlePrint()
-          : alert("Order Added Succesfully");
+        setOrderNo(resp.data.orderId);
+        handlePrint();
         resetBill();
       } else {
         // Handle error if the request was not successful
@@ -224,7 +228,7 @@ function PreviewBill({
             marginLeft: "75px",
           }}
         >
-          {customer_name} {mobile_number}{" "}
+          Order No: {orderNo} {customer_name} {mobile_number}{" "} 
         </label>
         <table style={{ marginLeft: "50px" }}>
           <thead>

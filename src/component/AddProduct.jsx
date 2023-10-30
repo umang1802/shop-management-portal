@@ -187,7 +187,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="flex flex-col items-start w-full mt-6">
-            <div className="text-blue-600 text-base">Price</div>
+            <div className="text-blue-600 text-base">Product Photo</div>
             <div className="w-full mt-2">
             <input
             type="file"
