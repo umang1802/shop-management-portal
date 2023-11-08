@@ -89,11 +89,10 @@ const EmployeeTable = ({ data, pageSize }) => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentData.map((item) => (
                     <tr key={item.id}>
-                      <Link to={`/pdp/${item.id}`} state={{ product: item }}>
+                     
                         <td className="px-6 py-4 whitespace-nowrap">
                           {item.name}
                         </td>
-                      </Link>
                       <td className="px-6 py-4 whitespace-nowrap">
                         {item.working_area}
                       </td>
@@ -110,7 +109,7 @@ const EmployeeTable = ({ data, pageSize }) => {
                         00:00
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-center">
-                        <button>View Profile</button>
+                        <Link to={`/employee/${item.employee_id}`} state={{ employee: item }}> <button>View Profile</button></Link>
                       </td>
                     </tr>
                   ))}

@@ -6,7 +6,7 @@ import Content from "../component/Content";
 import axios from "axios";
 import InactiveProductTable from "../component/Table/InactiveProductTable";
 import AddRawMaterialCard from "../component/Card/AddRawMaterialCard";
-import Products from "./Emplopyees";
+import Products from "./Products";
 
 const pageSize = 5;
 

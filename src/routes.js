@@ -11,6 +11,7 @@ import Bills from './container/Bills'
 import ProductDetailPage from "./component/ProductDetailPage";
 import Home from "./container/Home";
 import AccessDenied from "./AccessDenied";
+import EmployeeDetailPage from "./component/EmployeeDetailPage";
 
 
 const ShopRoutes = () => {
@@ -109,6 +110,19 @@ const ShopRoutes = () => {
                 <Layout>
                   {" "}
                   {((role || storedRole=== 'admin')) ? <Emplopyees /> : <AccessDenied/>}
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/employee/:employeeId"
+            element={
+              storedUsername ? (
+                <Layout>
+                  {" "}
+                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<EmployeeDetailPage /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

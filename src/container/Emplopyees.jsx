@@ -4,7 +4,7 @@ import axios from "axios";
 import EmployeeTable from "../component/Table/EmployeeTable";
 import AddEmployee from "../component/AddEmployee";
 
-export default function Emplopyees() {
+export default function Employees() {
   const [heading, setHeading] = useState("Employees Table");
   const [showProductTable, setShowProductTable] = useState(true);
   const [showAddCategory, setShowAddCategory] = useState(false);
