@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { getDate, getCurrentTime } from "../../util/getDate";
 
 function PreviewBill({
   productsForBill,
@@ -15,6 +16,7 @@ function PreviewBill({
   const location = useLocation();
   const [orderNo, setOrderNo] = useState(0);
   const discountToUse = (orderData && orderData.discount) || 0;
+  const [formattedDate] = getDate();
 
   const outletId = 1;
 
@@ -119,7 +121,6 @@ function PreviewBill({
     // Reset customer details and productsForBill here, if needed
     setCustomerName("");
     setMobileNumber("");
-    // setProductsForBill({});
   };
 
   // Call insertOrderInDatabase when you want to trigger the process
@@ -226,6 +227,15 @@ function PreviewBill({
             fontSize: "20px",
             fontFamily: "sans-serif",
             marginLeft: "75px",
+          }}
+        >
+          {formattedDate} {getCurrentTime()}
+        </label>
+        <label
+          style={{
+            fontSize: "20px",
+            fontFamily: "sans-serif",
+            marginLeft: "5px",
           }}
         >
           Order No: {orderNo} {customer_name} {mobile_number}{" "} 

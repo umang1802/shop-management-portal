@@ -36,6 +36,8 @@ function Content(props) {
       <div className="mt-6 flex flex-wrap">
         {props.showAddProduct ||
         props.showAddCategory ||
+        props.showPriceUpdate ||
+        props.showButtonThirdContent ||
         props.showInactiveProduct ? (
           <div
             onClick={props.backToShowProduct}

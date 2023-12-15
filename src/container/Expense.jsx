@@ -5,6 +5,8 @@ import AddExpenseCard from "../component/Card/AddExpenseCard";
 import ExpenseHistory from "../component/Table/ExpenseHistory";
 import axios from "axios";
 import { useEffect } from "react";
+import { getDate } from "../util/getDate";
+import AddEmployeeExpenseCard from '../component/Card/AddEmployeeExpenseCard'
 
 export default function Expense() {
   const [showProductTable, setShowProductTable] = useState(true);
@@ -45,27 +47,8 @@ export default function Expense() {
     setShowAddProduct(false);
     // setHeading('Inactive Products');
   };
-  const currentDate = new Date();
-  const day = currentDate.getDate(); // Get the day of the month
-  const monthIndex = currentDate.getMonth(); // Get the month index (0-11)
-  const year = currentDate.getFullYear(); // Get the full year
-  const month = String(currentDate.getMonth() + 1).padStart(2, "0");
 
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
-  const formattedDate = `${day}-${monthNames[monthIndex]}-${year}`;
+  const [formattedDate, day, month, year] = getDate();
 
   const [data, setData] = useState([]);
 
@@ -108,7 +91,7 @@ export default function Expense() {
       .catch((err) => {
         console.error("Error fetching data:", err);
       });
-  }, [dbDate, selectedOutlet]);
+  }, [dbDate, selectedOutlet,isCategoryAdded]);
 
   return (
     <>
@@ -144,7 +127,8 @@ export default function Expense() {
         {heading}
       </Content>
       {showProductTable && (
-        <div className="flex flex-wrap justify-">
+        <>
+        <div className="flex flex-wrap ">
           <ExpenseCard
             firstHeading="Expense Details"
             secondHeading="Amount"
@@ -156,6 +140,13 @@ export default function Expense() {
             dataUpdated={() => setCategoryAdded(true)}
           />
         </div>
+        <div className="flex flex-wrap justify-center">
+        <AddEmployeeExpenseCard
+          heading="Add Employee Expense"
+          outlet_id={selectedOutlet}
+          dataUpdated={() => setCategoryAdded(true)}
+        />
+      </div></>
       )}
       {showAddProduct && <></>}
       {showAddCategory && <ExpenseHistory />}

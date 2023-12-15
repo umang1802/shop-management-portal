@@ -109,6 +109,8 @@ export default function Dashboard() {
           showInactiveProduct={showInactiveProduct}
           showAddCategory={showAddCategory}
           showAddProduct={showAddProduct}
+          showPriceUpdate={showPriceUpdate}
+          showButtonThirdContent={showButtonThirdContent}
           backToShowProduct={backToShowProduct}
           initiateAddNewCategory={initiateAddNewCategory}
           initiateAddNewProduct={initiateAddNewProduct}

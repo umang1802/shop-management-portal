@@ -189,11 +189,12 @@ const AddEmployee = () => {
                 type="text"
                 className="py-2 px-2 border border-blue-600 rounded-sm w-full"
                 onChange={handleChange}
-                
+                defaultValue="Sisendi Bazaar"
+
               >
-                <option value={"Kg"}>Kg</option>
-                <option value={"litre"}>Litre</option>
-                <option value={"Piece"}>Piece</option>
+                <option value={"Sisendi Bazaar"}>Sisendi Bazaar</option>
+                <option value={"Sisendi ByPass"}>Sisendi ByPass</option>
+                <option value={"Warehouse"}>Warehouse</option>
               </select>
             </div>
           </div>

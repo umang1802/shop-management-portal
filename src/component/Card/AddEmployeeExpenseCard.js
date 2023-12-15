@@ -1,9 +1,10 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function AddExpenseCard(props) {
+function AddEmployeeExpenseCard(props) {
   const [description, setDescription] = useState("");
   const [amount, setAmount] = useState("");
+  const [employeeList, setEmployeeList] = useState([]);
 
   const handleExpenseChange = (event) => {
     setDescription(event.target.value);
@@ -13,6 +14,15 @@ function AddExpenseCard(props) {
     setAmount(Number(event.target.value));
   };
   const outlet_id = props.outlet_id;
+
+  useEffect(()=>{
+    axios.get('http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/employee')
+    .then((resp)=>{
+      setEmployeeList(resp.data.rows);
+    }).catch((err) => {
+      console.error("Error fetching data:", err);
+    });
+  },[])
 
   const handleAddExpense = (e) => {
     e.preventDefault();
@@ -45,7 +55,7 @@ function AddExpenseCard(props) {
         </thead>
         <tbody>
           <tr>
-            <td className="px-4 py-2 flex flex-col items-center">
+            <td className="px-4 flex flex-col items-center">
               <div className="text-blue-600">Expense Details</div>
               <input
                 className="rounded text-blue-500 border border-blue-500 border-solid p-2 w-3/5 mt-2"
@@ -55,9 +65,23 @@ function AddExpenseCard(props) {
               />
             </td>
           </tr>
+          <tr>
+            <td className="px-4 flex flex-col items-center">
+              <div className="text-blue-600">Employee ID</div>
+              <select
+                name="employee_id"
+                className="rounded text-blue-500 border border-blue-500 border-solid p-2 w-3/5 mt-2"
+                // onChange={handleChange}
+              >
+                {employeeList.map((item) => (
+                  <option value={item.employee_id}>{item.name}</option>
+                ))}
+              </select>
+            </td>
+          </tr>
 
           <tr>
-            <td className="px-4 py-2 flex flex-col items-center">
+            <td className="px-4 flex flex-col items-center">
               <div className="text-blue-600">Amount</div>
               <input
                 className="rounded text-blue-500 border border-blue-500 border-solid p-2 w-3/5 mt-2 ml-4"
@@ -82,4 +106,4 @@ function AddExpenseCard(props) {
   );
 }
 
-export default AddExpenseCard;
+export default AddEmployeeExpenseCard;
