@@ -128,12 +128,12 @@ export default function Expense() {
       </Content>
       {showProductTable && (
         <>
-        <div className="flex flex-wrap ">
-          <ExpenseCard
-            firstHeading="Expense Details"
-            secondHeading="Amount"
-            data={outeletData}
-          />
+        <div className="flex flex-wrap justify-center">
+        <AddEmployeeExpenseCard
+          heading="Add Employee Expense"
+          outlet_id={selectedOutlet}
+          dataUpdated={() => setCategoryAdded(true)}
+        />
           <AddExpenseCard
             heading="Add New Expense"
             outlet_id={selectedOutlet}
@@ -141,11 +141,13 @@ export default function Expense() {
           />
         </div>
         <div className="flex flex-wrap justify-center">
-        <AddEmployeeExpenseCard
-          heading="Add Employee Expense"
-          outlet_id={selectedOutlet}
-          dataUpdated={() => setCategoryAdded(true)}
-        />
+        <ExpenseCard
+            firstHeading="Expense Details"
+            secondHeading="Amount"
+            thirdHeading="Type"
+            data={outeletData}
+          />
+        
       </div></>
       )}
       {showAddProduct && <></>}

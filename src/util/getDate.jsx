@@ -19,7 +19,7 @@ export function getDate() {
     "Nov",
     "Dec",
   ];
-  const formattedDate = `${day}-${monthNames[monthIndex]}-${year}`;
+  const formattedDate = `${day}/${monthIndex}/${year}`;
 
   return [formattedDate, day, month, year];
 }

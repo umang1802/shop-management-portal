@@ -59,7 +59,7 @@ const Layout = ({ children }) => {
         </div>
       </div>
       <div
-        className={`w-full lg:px-4 xl:py-4 p-2 h-screen overflow-y-auto ${
+        className={`w-full xl:py-4 h-screen overflow-y-auto ${
           isCollapsed ? "" : "lg:w-4/5 xl:w-4/5"
         }`}
       >

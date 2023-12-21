@@ -1,16 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 import Content from "./Content";
 import { useLocation } from "react-router-dom";
 
 function ProductDetailPage() {
   const location = useLocation();
+  const [isEditing, setIsEditing] = useState(false);
+  const [productName, setProductName] = useState(location.state?.product.product_name);
+
+  const toggleEdit = () => {
+    setIsEditing(!isEditing);
+  };
+
+  const handleProductNameChange = (e) => {
+    setProductName(e.target.value);
+  };
+
   return (
     <>
       <Content></Content>
       <div className="w-auto bg-white rounded-xl">
         <div className="flex">
-          <div className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2">
-            Edit Product
+          <div
+            className="rounded-full border-2 border-gray-400 px-6 py-3 shadow-md text-sm font-bold text-gray-800 mb-2 mr-2 cursor-pointer"
+            onClick={toggleEdit}
+          >
+            {isEditing ? "Save Changes" : "Edit Product"}
           </div>
         </div>
         <div className="flex bg-white px-8 py-8 shadow-md rounded-md m-4">
@@ -24,7 +38,16 @@ function ProductDetailPage() {
               />
               <div className="flex flex-col mx-4">
                 <div className="text-4xl">
-                  {location.state?.product.product_name}
+                  {isEditing ? (
+                    <input
+                      type="text"
+                      value={productName}
+                      onChange={handleProductNameChange}
+                      className="border border-black rounded-sm w-full"
+                    />
+                  ) : (
+                    location.state?.product.product_name
+                  )}
                 </div>
 
                 <div className="text-2xl">

@@ -25,7 +25,7 @@ function ModalCard(props) {
         </div>
         <div className="flex justify-between px-4">
           <label className="justify-left">
-            {(props.orderData &&  props.orderData.delivery_date && limit(props.orderData.delivery_date, 10)) || ''} 
+            {(props.orderData &&  props.orderData.delivery_date && limit(props.orderData.delivery_date, 10).split('-').reverse().join('/')) || ''} 
           </label>
           <label className="justify-right mr-7">
             {" "}

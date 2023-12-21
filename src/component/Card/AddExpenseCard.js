@@ -36,7 +36,7 @@ function AddExpenseCard(props) {
       });
   };
   return (
-    <div className="w-full lg:w-1/2 bg-white rounded-xl shadow-lg m-4">
+    <div className="w-full lg:w-2/5 bg-white rounded-xl shadow-lg m-4">
       <table className="w-full">
         <thead className="bg-blue-50 rounded-xl">
           <tr>
@@ -60,7 +60,7 @@ function AddExpenseCard(props) {
             <td className="px-4 py-2 flex flex-col items-center">
               <div className="text-blue-600">Amount</div>
               <input
-                className="rounded text-blue-500 border border-blue-500 border-solid p-2 w-3/5 mt-2 ml-4"
+                className="rounded text-blue-500 border border-blue-500 border-solid p-2 w-3/5 mt-2"
                 type="number"
                 value={amount}
                 onChange={handleAmountChange}

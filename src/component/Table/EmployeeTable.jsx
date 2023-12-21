@@ -86,7 +86,7 @@ const EmployeeTable = ({ data, pageSize }) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white divide-y divide-gray-200 capitalize">
                   {currentData.map((item) => (
                     <tr key={item.id}>
                      

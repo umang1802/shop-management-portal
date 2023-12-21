@@ -1,14 +1,14 @@
 import React from "react";
 
 function ExpenseCard(props) {
-    let sum = 0;
   return (
-    <div className="w-full lg:w-2/5 bg-white rounded-xl shadow-lg m-4">
+    <div className="w-full lg:w-3/5 bg-white rounded-xl shadow-lg my-4">
       <table className="w-full">
       <thead className="bg-blue-50 rounded-xl">
         <tr>
           <th className="px-4 py-2">{props.firstHeading}</th>
           {props.secondHeading && <th className="px-4 py-2">{props.secondHeading}</th>}
+          {props.thirdHeading && <th className="px-4 py-2">{props.thirdHeading}</th>}
         </tr>
       </thead>
       <tbody>

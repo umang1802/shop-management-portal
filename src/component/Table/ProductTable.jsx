@@ -94,6 +94,20 @@ const Table = ({ data, pageSize }) => {
     }
   };
 
+  const handleStarMark = async (productId) => {
+    try {
+      const response = await axios.post(
+        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/starMark",
+        { productId }
+      );
+      if (response) {
+        alert("Product Star Mark Updated");
+      }
+    } catch (error) {
+      console.error("Error:", error.message);
+    }
+  }
+
   return (
     <>
       <div className="text-2xl text-gray-800 mt-4">
@@ -106,6 +120,11 @@ const Table = ({ data, pageSize }) => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
+                  <th
+                      scope="col"
+                      className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                    </th>
                     <th
                       scope="col"
                       className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -147,6 +166,9 @@ const Table = ({ data, pageSize }) => {
                 <tbody className="bg-white divide-y divide-gray-200">
                   {currentData.map((item) => (
                     <tr key={item.id}>
+                      <td className="px-6 py-4 whitespace-nowrap">
+                          <input type='checkbox' onClick={()=>handleStarMark(item.id)}/>
+                        </td>
                       <Link to={`/pdp/${item.id}`} state={{ product: item }}>
                         <td className="px-6 py-4 whitespace-nowrap">
                           {item.product_name}

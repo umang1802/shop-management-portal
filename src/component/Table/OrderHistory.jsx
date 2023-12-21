@@ -114,7 +114,7 @@ function OrderHistory() {
                 <tr key={item.id}>
                   <td className="px-4 py-2 text-center">{item.order_id}</td>
                   <td className="px-4 py-2 text-center">
-                    {(item.order_date && item.order_date.slice(0, 10)) ||
+                    {(item.order_date && item.order_date.slice(0, 10).split('-').reverse().join('/')) ||
                       "2023-01-01"}
                   </td>
                   <td className="px-4 py-2 text-center">

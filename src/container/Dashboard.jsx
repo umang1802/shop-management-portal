@@ -26,7 +26,6 @@ export default function Dashboard() {
         const response = await axios.get(
           "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/products"
         );
-        console.log("response: " + response);
         setdbData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);

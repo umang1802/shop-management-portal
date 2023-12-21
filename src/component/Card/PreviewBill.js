@@ -33,6 +33,13 @@ function PreviewBill({
     setTotalPrice(totalPrice - discountAmount);
   }, [productsForBill, discountToUse]); // Added 'discountToUse' to the dependency array
 
+  useEffect(()=>{
+    if(orderNo){
+      handlePrint();
+      resetBill();
+    }
+  },[orderNo])
+
  
   const insertOrderInDatabase = async () => {
     const defaultCustomerName = "Customer";
@@ -45,8 +52,8 @@ function PreviewBill({
       mobile_number || (orderData && orderData.mobile_number) || defaultMobileNumber;
     const typeToUse = location.pathname === "/bills" ? "normal" : "special";
     const customerAddresseToUse = (orderData &&orderData.customer_address) || "";
-    const deliveryDateToUse = (orderData && orderData.delivery_date ) || "2023-01-01";
-    const deliveryTimeToUse = (orderData && orderData.delivery_time) || "22:30:00";
+    const deliveryDateToUse = (orderData && orderData.delivery_date ) || formattedDate;
+    const deliveryTimeToUse = (orderData && orderData.delivery_time) || getCurrentTime();
     
     const noteToUse = (orderData && orderData.note ) || "";
     const advanceAmountToUse = (orderData && orderData.advance_amount) || 0;
@@ -78,8 +85,6 @@ function PreviewBill({
       if (resp.status === 201) {
         // Now that the order is inserted, proceed with printing
         setOrderNo(resp.data.orderId);
-        handlePrint();
-        resetBill();
       } else {
         // Handle error if the request was not successful
         console.error("Error: Unable to add order.");
