@@ -47,7 +47,7 @@ export default function SpecialOrders() {
   useEffect(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get("http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/get-orders?type=special");
+            const response = await axios.get(process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/order/get-orders?type=special');
             setOrders(response.data.rows);
         } catch (error) {
             console.error('Error fetching data:', error);

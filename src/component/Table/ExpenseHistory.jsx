@@ -18,7 +18,7 @@ function ExpenseHistory() {
   const fetchData = () => {
     axios
       .get(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense//get-all-outlet-expense"
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/expense/get-all-outlet-expense'
       )
       .then((resp) => {
         setData(resp.data.rows);

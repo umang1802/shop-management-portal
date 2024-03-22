@@ -13,7 +13,7 @@ function EmployeeDetailPage() {
   const handleChangeStatus = () => {
     let employee_id =location.state?.employee.employee_id;
     let working_status = location.state?.employee.working_status === "active" ? 'inactive':'active';
-    axios.put('http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/employee/updateWorkingStatus', 
+    axios.put(process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/employee/updateWorkingStatus', 
     { employee_id, working_status }).then(()=>{
       alert('Employee Marked '+ (location.state?.employee.working_status === "active" ? 'Inactive':'Active'));
     })
@@ -46,7 +46,7 @@ function EmployeeDetailPage() {
           <div className="w-full lg:w-1/3 xl:w-1/3 p-2">
             <div className="flex">
               <img
-                src={`http://ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/${location.state?.employee.product}`}
+                src={`${process.env.REACT_APP_BACKEND_MICROSERVICE_URL}+${location.state?.employee.product}`}
                 height="100"
                 width="100"
                 alt="Employee"

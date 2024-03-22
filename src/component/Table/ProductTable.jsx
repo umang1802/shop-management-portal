@@ -65,7 +65,7 @@ const Table = ({ data, pageSize }) => {
     setEditedData({});
     try {
       const response = await axios.post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/update-stock",
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'update-stock',
         { warehouseStock, outletStock, productId, outletId, warehouseId }
       );
       console.log(response);
@@ -83,7 +83,7 @@ const Table = ({ data, pageSize }) => {
   const handleMakeInactive = async () => {
     try {
       const response = await axios.post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/makeInactive",
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/product/makeInactive',
         { productId }
       );
       if (response) {
@@ -97,7 +97,7 @@ const Table = ({ data, pageSize }) => {
   const handleStarMark = async (productId) => {
     try {
       const response = await axios.post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/product/starMark",
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/product/starMark',
         { productId }
       );
       if (response) {

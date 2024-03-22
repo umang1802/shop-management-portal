@@ -18,7 +18,7 @@ function AddExpenseCard(props) {
     e.preventDefault();
     axios
       .post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/add-expense",
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/expense/add-expense',
         {
           description,
           amount,

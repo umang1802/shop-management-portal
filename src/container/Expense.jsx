@@ -55,7 +55,7 @@ export default function Expense() {
   const fetchData = () => {
     axios
       .get(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/outlet/get-outlets"
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/outlet/get-outlets'
       )
       .then((resp) => {
         setData(resp.data.rows);
@@ -82,7 +82,7 @@ export default function Expense() {
   useEffect(() => {
     axios
       .post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/expense/get-outlet-expense",
+         process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/expense/get-outlet-expense',
         { selectedOutlet, dbDate }
       )
       .then((resp) => {

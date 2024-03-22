@@ -62,7 +62,7 @@ function PreviewBill({
     try {
       // Make the POST request to add an order
       const resp = await axios.post(
-        "http://ubuntu@ec2-3-138-100-165.us-east-2.compute.amazonaws.com:3001/api/order/add-order",
+        process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/order/add-order',
         {
           customer_name: customerNameToUse,
           mobile_number: mobileNumberToUse,
