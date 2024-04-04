@@ -2,7 +2,7 @@ import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "./Layout";
 import Dashboard from "./container/Dashboard";
-import Emplopyees from "./container/Emplopyees";
+import Employees from "./container/Emplopyees";
 import Offer from "./container/SpecialOrders";
 import Expense from "./container/Expense";
 import LoginScreen from "./LoginScreen";
@@ -12,25 +12,24 @@ import ProductDetailPage from "./component/ProductDetailPage";
 import Home from "./container/Home";
 import AccessDenied from "./AccessDenied";
 import EmployeeDetailPage from "./component/EmployeeDetailPage";
+import TaskRequest from "./container/TaskRequest";
 
 
 const ShopRoutes = () => {
-  const storedUsername = localStorage.getItem('username');
-  const storedRole = localStorage.getItem('role');
+  const user = JSON.parse(localStorage.getItem('user')) || '';
 
   return (
     <AuthContext.Consumer>
       {({ role }) => (
         <Routes>
-          {console.log(role,storedUsername)}
           <Route path="/login" element={<LoginScreen />} />
           <Route
             path="/"
             element={
-              storedUsername ? (
+              user?.name ? (
                 <Layout>
                   {" "}
-                  {(role || storedRole === 'admin' ) ?<Home/>: <AccessDenied/>}
+                  {(role || user.role === 'admin' ) ?<Home/>: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -40,10 +39,10 @@ const ShopRoutes = () => {
           <Route
             path="/product"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<Dashboard />: <AccessDenied/>}
+                  {((role || user.role=== 'admin') ||(role || user.role ==='outlet_manager')) ?<Dashboard />: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -53,10 +52,10 @@ const ShopRoutes = () => {
           <Route
             path="/special-order"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<Offer />: <AccessDenied/>}
+                  {((role || user.role=== 'admin') ||(role || user.role ==='outlet_manager')) ?<Offer />: <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -66,7 +65,7 @@ const ShopRoutes = () => {
           <Route
             path="/expense"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
                   <Expense />
@@ -79,10 +78,10 @@ const ShopRoutes = () => {
           <Route
             path="/bills"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ? <Bills />: 
+                  {((role || user.role=== 'admin') ||(role || user.role ==='outlet_manager')) ? <Bills />: 
                    <AccessDenied/>}
                 </Layout>
               ) : (
@@ -93,10 +92,10 @@ const ShopRoutes = () => {
           <Route
             path="/pdp/:productId"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<ProductDetailPage /> : <AccessDenied/>}
+                  {((role || user.role=== 'admin') ||(role || user.role ==='outlet_manager')) ?<ProductDetailPage /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -106,10 +105,10 @@ const ShopRoutes = () => {
           <Route
             path="/employee"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin')) ? <Emplopyees /> : <AccessDenied/>}
+                  {((role || user.role=== 'admin')) ? <Employees /> : <AccessDenied/>}
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />
@@ -119,10 +118,23 @@ const ShopRoutes = () => {
           <Route
             path="/employee/:employeeId"
             element={
-              storedUsername ? (
+              user.name ? (
                 <Layout>
                   {" "}
-                  {((role || storedRole=== 'admin') ||(role || storedRole ==='outlet_manager')) ?<EmployeeDetailPage /> : <AccessDenied/>}
+                  {((role || user.role=== 'admin') ||(role || user.role ==='outlet_manager')) ?<EmployeeDetailPage /> : <AccessDenied/>}
+                </Layout>
+              ) : (
+                <Navigate to="/login" replace={true} />
+              )
+            }
+          />
+          <Route
+            path="/request"
+            element={
+              user.name ? (
+                <Layout>
+                  {" "}
+                   <TaskRequest /> 
                 </Layout>
               ) : (
                 <Navigate to="/login" replace={true} />

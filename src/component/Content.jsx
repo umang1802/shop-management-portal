@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect}from "react";
 import { useNavigate } from "react-router-dom";
 
 function Content(props) {
@@ -10,6 +10,16 @@ function Content(props) {
   const handlePrint = () => {
     window.print();
   };
+  const [currentDateTime, setCurrentDateTime] = useState('');
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      const now = new Date();
+      setCurrentDateTime(now.toLocaleString(undefined, { timeZone: 'UTC' }));
+    }, 1000);
+
+    return () => clearInterval(intervalId);
+  }, []);
   return (
     <>
       <div className="block md:flex md:items-center lg:flex lg:items-center xl:flex xl:items-center">
@@ -17,7 +27,7 @@ function Content(props) {
           {props.children}
         </div>
         <div className="md:block lg:block xl:block ml-auto flex items-center text-gray-400 text-sm font-normal">
-          Teusday | 25 Apr 2023 | 8:20 AM
+          {currentDateTime}
           <input type="text" className="border rounded-full px-2 py-2 ml-2" />
           <button
             onClick={handlePrint}

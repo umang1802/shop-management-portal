@@ -23,8 +23,7 @@ const LoginScreen = () => {
     try {
       const response = await axios.post(process.env.REACT_APP_BACKEND_MICROSERVICE_URL+'api/users/login', { name, password });
       if (response.data.rows.length > 0) {
-        localStorage.setItem('username',response.data.rows[0].name);
-        localStorage.setItem('role',response.data.rows[0].role);
+        localStorage.setItem('user',JSON.stringify(response.data.rows[0]));
         getRole();
         navigate('/');
       } else {

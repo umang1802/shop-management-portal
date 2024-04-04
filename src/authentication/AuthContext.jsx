@@ -9,7 +9,7 @@ const AuthProvider = ({ children }) => {
 
   const getRole = () => {
     // Perform your login logic here
-    setRole(localStorage.getItem('role'));
+    setRole(JSON.parse(localStorage.getItem('user')).role);
   };
 
 
